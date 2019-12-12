@@ -31,3 +31,5 @@ app.use((err,req,res) => {
 let server = app.listen(process.env.PORT || 5000, () => {
     console.log(`server is running on port ${server.address().port}`)
 })
+
+module.exports = app
