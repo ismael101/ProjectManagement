@@ -3,6 +3,7 @@ const projectControllers = require('../controllers/projects')
 const auth = require('../middleware/auth')
 const router = express.Router()
 
+//added middleware to secure these routes that get create update and delete projects
 router.get('/',auth,projectControllers.getProjects)
 
 router.get('/:id',auth,projectControllers.getProject)

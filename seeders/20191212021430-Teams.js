@@ -12,6 +12,7 @@ module.exports = {
         isBetaMember: false
       }], {});
     */
+   //seed the database with this dummy data
    return queryInterface.bulkInsert('Teams',[
      {name:'jedi', createdAt: new Date(), updatedAt: new Date()},
      {name:'sith', createdAt: new Date(), updatedAt: new Date()}
@@ -26,6 +27,7 @@ module.exports = {
       Example:
       return queryInterface.bulkDelete('People', null, {});
     */
+   //unseed
    return queryInterface.bulkDelete('Teams', null, {})
   }
 };

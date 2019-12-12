@@ -12,6 +12,7 @@ module.exports = {
         isBetaMember: false
       }], {});
     */
+   //seed the database with this dummy data
    return queryInterface.bulkInsert('Tasks',[
      {name:'Force Training',description:'Train on how to use the force',status:true,user_id:1,project_id:1,team_id:1,createdAt: new Date(), updatedAt: new Date()},
      {name:'Lightsaber training',description:'Teach luke skywalker how to use a lightsaber',status:true,user_id:2,project_id:1,team_id:1,createdAt: new Date(), updatedAt: new Date()},
@@ -36,6 +37,7 @@ module.exports = {
       Example:
       return queryInterface.bulkDelete('People', null, {});
     */
+   //unseed
    return queryInterface.bulkDelete('Tasks', null, {})
   }
 };

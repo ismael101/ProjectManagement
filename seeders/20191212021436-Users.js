@@ -14,6 +14,7 @@ module.exports = {
         isBetaMember: false
       }], {});
     */
+   //seed the database with this dummy data
    return queryInterface.bulkInsert('Users',[
      {username:'luke',password:bcrypt.hashSync('password101',salt), team_id: 1 ,createdAt: new Date(), updatedAt: new Date()},
      {username:'obiwan', password:bcrypt.hashSync('password102',salt), team_id: 1 ,createdAt: new Date(), updatedAt: new Date()},
@@ -30,6 +31,7 @@ module.exports = {
       Example:
       return queryInterface.bulkDelete('People', null, {});
     */
+   //unseed
    return queryInterface.bulkDelete('Users', null, {})
   }
 };

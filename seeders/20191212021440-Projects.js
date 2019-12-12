@@ -12,6 +12,7 @@ module.exports = {
         isBetaMember: false
       }], {});
     */
+   //seed the database with this dummy data
     return queryInterface.bulkInsert('Projects',[
       {name:"Train Luke",description:"We need to train luke on the ways of the jedi",status:true,team_id:1,createdAt: new Date(), updatedAt: new Date()},
       {name:"Defeat Darth Vader",description:"The jedi need to defeat darth vader",status:false,team_id:1,createdAt: new Date(), updatedAt: new Date()},
@@ -28,6 +29,7 @@ module.exports = {
       Example:
       return queryInterface.bulkDelete('People', null, {});
     */
+   //unseed
    return queryInterface.bulkDelete('Projects', null, {})
   }
 };

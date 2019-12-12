@@ -4,6 +4,7 @@ const auth = require('../middleware/auth')
 const router = express.Router()
 
 
+//added middleware to secure these routes that get create update and delete teams
 router.get('/',auth,teamsController.getTeam)
 
 router.post('/',auth,teamsController.createTeam)
