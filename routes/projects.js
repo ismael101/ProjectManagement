@@ -9,7 +9,7 @@ router.get('/:id',auth,projectControllers.getProject)
 
 router.post('/',auth,projectControllers.createProject)
 
-router.patch('/',auth,projectControllers.updateProject)
+router.patch('/:id',auth,projectControllers.updateProject)
 
 router.delete('/:id',auth,projectControllers.deleteProject)
 
