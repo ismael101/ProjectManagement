@@ -35,3 +35,13 @@ exports.register = (req,res,next) => {
             }
         })
 }
+
+exports.getMembers = (req,res,next) => {
+    Users.findAll({where:{team_id:req.team_id},attributes: ['id', 'username']})
+    .then(users => {
+       res.status(200).json(users)
+    })
+    .catch(error => {
+       res.status(400).json(error)
+    })
+}
