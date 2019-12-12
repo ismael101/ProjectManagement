@@ -16,10 +16,10 @@ module.exports = {
     */
    //seed the database with this dummy data
    return queryInterface.bulkInsert('Users',[
-     {username:'luke',password:bcrypt.hashSync('password101',salt), team_id: 1 ,createdAt: new Date(), updatedAt: new Date()},
-     {username:'obiwan', password:bcrypt.hashSync('password102',salt), team_id: 1 ,createdAt: new Date(), updatedAt: new Date()},
-     {username:'vader', password:bcrypt.hashSync('password103',salt), team_id:2 ,createdAt: new Date(), updatedAt: new Date()},
-     {username:'sidious', password:bcrypt.hashSync('password104',salt), team_id:2, createdAt: new Date(), updatedAt: new Date()}
+     {username:'luke',password:bcrypt.hashSync('password101',salt), team_id: 1,role:'jedi padawan',createdAt: new Date(), updatedAt: new Date()},
+     {username:'obiwan', password:bcrypt.hashSync('password102',salt), team_id: 1,role:'jedi master' ,createdAt: new Date(), updatedAt: new Date()},
+     {username:'vader', password:bcrypt.hashSync('password103',salt), team_id:2,role:'sith apprentice' ,createdAt: new Date(), updatedAt: new Date()},
+     {username:'sidious', password:bcrypt.hashSync('password104',salt), team_id:2,role:'sith lord',createdAt: new Date(), updatedAt: new Date()}
    ])
   },
 

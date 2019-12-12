@@ -5,6 +5,10 @@ module.exports = (sequelize, DataTypes) => {
       type:DataTypes.STRING,
       allowNull:false,
       unique:true 
+    },
+    role:{
+      type:DataTypes.STRING,
+      allowNull:false,
     }
   }, {});
   Teams.associate = function(models) {

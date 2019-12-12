@@ -66,7 +66,7 @@ exports.updateUser = (req,res,next) => {
 //created this controller to fetch team members
 exports.getMembers = (req,res,next) => {
     //find all the users with the tokens team id and return only their i and name
-    Users.findAll({where:{team_id:req.team_id},attributes: ['id', 'username']})
+    Users.findAll({where:{team_id:req.team_id},attributes: ['id', 'username', 'role']})
     .then(users => {
         //return the users
        res.status(200).json(users)
