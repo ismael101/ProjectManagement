@@ -1,20 +1,15 @@
 const express = require('express')
+const tasksControllers = require('../controllers/tasks')
 const router = express.Router()
 
-router.get('/',(req,res,next) => {
-    res.status(200).json('loud and clear')
-})
+router.get('/',tasksControllers.getTasks)
 
-router.get('/:id',(req,res,next) => {
-    res.status(200).json(req.params.id)
-})
+router.get('/:id',tasksControllers.getTask)
 
-router.post('/',(req,res,next) => {
-    res.status(200).json(req.body)
-})
+router.post('/',tasksControllers.createTask)
 
-router.delete('/:id',(req,res,next) => {
-    res.status(200).json(req.params.id)
-})
+router.patch('/',tasksControllers.updateTask)
+
+router.delete('/:id',tasksControllers.deleteTask)
 
 module.exports = router
