@@ -1,20 +1,15 @@
 const express = require('express')
+const teamsController = require('../controllers/teams')
 const router = express.Router()
 
-router.get('/',(req,res,next) => {
-    res.status(200).json('loud and clear')
-})
+router.get('/',teamsController.getTeams)
 
-router.get('/:id',(req,res,next) => {
-    res.status(200).json(req.params.id)
-})
+router.get('/:id',teamsController.getTeam)
 
-router.post('/',(req,res,next) => {
-    res.status(200).json(req.body)
-})
+router.post('/',teamsController.createTeam)
 
-router.delete('/:id',(req,res,next) => {
-    res.status(200).json(req.params.id)
-})
+router.patch('/:id', teamsController.updateTeam)
+
+router.delete('/:id', teamsController.deleteTeam)
 
 module.exports = router

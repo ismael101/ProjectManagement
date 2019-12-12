@@ -1,20 +1,15 @@
 const express = require('express')
+const projectControllers = require('../controllers/projects')
 const router = express.Router()
 
-router.get('/',(req,res,next) => {
-    res.status(200).json('loud and clear')
-})
+router.get('/',projectControllers.getProjects)
 
-router.get('/:id',(req,res,next) => {
-    res.status(200).json(req.params.id)
-})
+router.get('/:id',projectControllers.getProject)
 
-router.post('/',(req,res,next) => {
-    res.status(200).json(req.body)
-})
+router.post('/',projectControllers.createProject)
 
-router.delete('/:id',(req,res,next) => {
-    res.status(200).json(req.params.id)
-})
+router.patch('/',projectControllers.updateProject)
+
+router.delete('/:id',projectControllers.deleteProject)
 
 module.exports = router
