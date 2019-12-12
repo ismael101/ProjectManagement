@@ -31,7 +31,7 @@ exports.login = (req,res,next) => {
 exports.register = (req,res,next) => {
     //create the user here
     Users.create(req.body)
-        .then(res => {
+        .then(() => {
             res.status(200).json({message:'User Created'})
         })
         .catch(err => {

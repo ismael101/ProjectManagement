@@ -4,8 +4,10 @@
   "description": "This is an application that helps users create team projects",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start":"nodemon server.js"
+    "test": "cross-env NODE_ENV=test jest --testTimeout=10000",
+    "pretest":"cross-env NODE_ENV=test npm run migrate",
+    "migrate":"npx sequelize-cli db:migrate",
+    "start": "nodemon server.js"
   },
   "author": "Ismael Farah",
   "license": "ISC",
@@ -20,6 +22,9 @@
     "sequelize-cli": "^5.5.1"
   },
   "devDependencies": {
-    "sqlite3": "^4.1.1"
+    "cross-env": "^6.0.3",
+    "jest": "^24.9.0",
+    "sqlite3": "^4.1.1",
+    "supertest": "^4.0.2"
   }
 }
