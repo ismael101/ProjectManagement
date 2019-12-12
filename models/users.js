@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     hooks:{
+      //hashsing password after its validated
       afterValidate: (user) => {
         user.password = bcrypt.hashSync(user.password,salt)
       }
