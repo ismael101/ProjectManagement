@@ -46,6 +46,23 @@ exports.register = (req,res,next) => {
         })
 }
 
+exports.updateUser = (req,res,next) => {
+    Users.update(req.body,{where:{id:req.user_id}})
+         .then(() => {
+            res.status(200).json({message:'User Updated'})
+         })
+         .catch(error => {
+            if (error instanceof Sequelize.ValidationError) {
+                let messages = error.errors.map( (e) => e.message)
+                return res.status(400).json(messages)
+            }else{
+                //if the error isn't a validation error than i pass it to the server js file
+                return next(error)
+            }
+         })
+}
+
+
 //created this controller to fetch team members
 exports.getMembers = (req,res,next) => {
     //find all the users with the tokens team id and return only their i and name

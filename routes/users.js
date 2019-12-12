@@ -10,5 +10,6 @@ router.post('/login',usersControllers.login)
 
 router.post('/register',usersControllers.register)
 
+router.patch('/',auth,usersControllers.updateUser)
 
 module.exports = router
