@@ -1,4 +1,6 @@
 'use strict';
+const bcrypt = require('bcrypt')
+var salt = bcrypt.genSaltSync(process.env.SALT);
 module.exports = (sequelize, DataTypes) => {
   const Users = sequelize.define('Users', {
     username: {
@@ -6,8 +8,17 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       unique:true
     },
-    password: DataTypes.STRING
-  }, {});
+    password: {
+      type: DataTypes.STRING,
+      allowNull:false
+    }
+  }, {
+    hooks:{
+      afterValidate: (user) => {
+        user.password = bcrypt.hashSync(user.password,salt)
+      }
+    }
+  });
   Users.associate = function(models) {
     // associations can be defined here
     Users.belongsTo(models.Teams,{
