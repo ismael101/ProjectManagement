@@ -1,0 +1,11 @@
+{
+  "name": "project_management",
+  "version": "1.0.0",
+  "description": "This is an application that helps users create team projects",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ismael Farah",
+  "license": "ISC"
+}
