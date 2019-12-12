@@ -45,6 +45,15 @@ module.exports = {
           key: 'id',
           as: 'user_id'
         }
+      },
+      team_id:{
+        type:Sequelize.INTEGER,
+        onDelete: 'CASCADE',
+        references:{
+          model:'Teams',
+          key:'id',
+          as:'team_id'
+        }
       }
     });
   },
