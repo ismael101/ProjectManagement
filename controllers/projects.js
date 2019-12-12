@@ -67,7 +67,7 @@ exports.updateProject = (req,res,next) => {
                         return res.status(400).json(messages)
                     }else{
                         //if the error isn't a validation error than i pass it to the server js file
-                        return next(err)
+                        return next(error)
                     }
                 })
             })
