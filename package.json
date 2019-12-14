@@ -5,8 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "cross-env NODE_ENV=test jest --testTimeout=10000",
-    "pretest":"cross-env NODE_ENV=test npm run migrate",
-    "migrate":"npx sequelize-cli db:migrate",
+    "pretest": "cross-env NODE_ENV=test npm run migrate",
+    "migrate": "npx sequelize-cli db:migrate",
     "start": "nodemon server.js"
   },
   "author": "Ismael Farah",
