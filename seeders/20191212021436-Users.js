@@ -16,10 +16,10 @@ module.exports = {
     */
    //seed the database with this dummy data
    return queryInterface.bulkInsert('Users',[
-     {username:'luke',password:bcrypt.hashSync('password101',salt), team_id: 1,role:'jedi padawan',createdAt: new Date(), updatedAt: new Date()},
-     {username:'obiwan', password:bcrypt.hashSync('password102',salt), team_id: 1,role:'jedi master' ,createdAt: new Date(), updatedAt: new Date()},
-     {username:'vader', password:bcrypt.hashSync('password103',salt), team_id:2,role:'sith apprentice' ,createdAt: new Date(), updatedAt: new Date()},
-     {username:'sidious', password:bcrypt.hashSync('password104',salt), team_id:2,role:'sith lord',createdAt: new Date(), updatedAt: new Date()}
+     {username:'luke',password:bcrypt.hashSync('password101',salt), teamname: 'jedi',role:'jedi padawan',profilepic:'http://localhost:5000/images/luke.png',createdAt: new Date(), updatedAt: new Date()},
+     {username:'obiwan', password:bcrypt.hashSync('password102',salt), teamname: 'jedi',role:'jedi master',profilepic:'http://localhost:5000/images/obiwan.png' ,createdAt: new Date(), updatedAt: new Date()},
+     {username:'vader', password:bcrypt.hashSync('password103',salt), teamname:'sith',role:'sith lord',profilepic:'http://localhost:5000/images/vader.png' ,createdAt: new Date(), updatedAt: new Date()},
+     {username:'maul', password:bcrypt.hashSync('password104',salt), teamname:'sith',role:'sith lord',profilepic:'http://localhost:5000/images/vader.png',createdAt: new Date(), updatedAt: new Date()}
    ])
   },
 

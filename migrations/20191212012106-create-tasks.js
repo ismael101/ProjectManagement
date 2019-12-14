@@ -36,14 +36,14 @@ module.exports = {
           as: 'project_id'
         }
       },
-      user_id: {
-        type: Sequelize.INTEGER,
+      assigned: {
+        type: Sequelize.STRING,
         onDelete: 'SET NULL',
         hooks:true,
         references: {
           model: 'Users',
-          key: 'id',
-          as: 'user_id'
+          key: 'username',
+          as: 'assigned'
         }
       },
       team_id:{

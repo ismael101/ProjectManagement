@@ -10,7 +10,8 @@ const tasks = require('./routes/tasks')
 app.use(express.json())
 //allow for cross origin resources
 app.use(cors())
-
+//show static user images here
+app.use('/images', express.static('images/'))
 //expose the routes here
 app.use('/projects', projects)
 app.use('/users', users)

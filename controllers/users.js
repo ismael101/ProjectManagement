@@ -30,7 +30,13 @@ exports.login = (req,res,next) => {
 //created this controller to register new users
 exports.register = (req,res,next) => {
     //create the user here
-    Users.create(req.body)
+    let body = {
+        username:req.body.username,
+        password:req.body.password,
+        role:req.body.role,
+        profilepic:`http://localhost:5000${req.file.path}`
+    }
+    Users.create(body)
         .then(() => {
             res.status(200).json({message:'User Created'})
         })
@@ -66,7 +72,7 @@ exports.updateUser = (req,res,next) => {
 //created this controller to fetch team members
 exports.getMembers = (req,res,next) => {
     //find all the users with the tokens team id and return only their i and name
-    Users.findAll({where:{team_id:req.team_id},attributes: ['id', 'username', 'role']})
+    Users.findAll({where:{team_id:req.team_id},attributes: ['id', 'username', 'role','profilepic']})
     .then(users => {
         //return the users
        res.status(200).json(users)

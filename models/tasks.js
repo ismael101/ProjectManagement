@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       hooks:true
     })
     Tasks.belongsTo(models.Users,{
-      foreignKey: 'user_id',
+      foreignKey: 'assigned',
       onDelete: 'SET NULL'
     })
     Tasks.belongsTo(models.Teams,{

@@ -11,6 +11,14 @@ module.exports = (sequelize, DataTypes) => {
     password: {
       type: DataTypes.STRING,
       allowNull:false
+    },
+    role:{
+      type:DataTypes.STRING,
+      allowNull:false
+    },
+    profilepic:{
+      type:DataTypes.STRING,
+      allowNull:false
     }
   }, {
     hooks:{
@@ -23,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
   Users.associate = function(models) {
     // associations can be defined here
     Users.belongsTo(models.Teams,{
-      foreignKey: 'team_id',
+      foreignKey: 'teamname',
       onDelete: 'SET NULL'
     })
   };
