@@ -32,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
     Users.belongsTo(models.Teams,{
       foreignKey: 'teamname',
-      onDelete: 'SET NULL'
+      onDelete: 'CASCADE'
     })
   };
   return Users;

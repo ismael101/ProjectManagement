@@ -12,7 +12,7 @@ exports.login = (req,res,next) => {
             let auth = bcrypt.compareSync(req.body.password,user.password)
             if(auth){
                 //if the password is correct return a json web token
-                const token = jwt.sign({id:user.id,team_id:user.team_id},process.env.KEY,{expiresIn:'2h'})    
+                const token = jwt.sign({id:user.id,teamname:user.teamname},process.env.KEY,{expiresIn:'2h'})    
                 res.status(200).json({token:token})
             }
             else{
@@ -34,7 +34,7 @@ exports.register = (req,res,next) => {
         username:req.body.username,
         password:req.body.password,
         role:req.body.role,
-        profilepic:`http://localhost:5000${req.file.path}`
+        profilepic:`http://localhost:5000/${req.file.path}`
     }
     Users.create(body)
         .then(() => {
@@ -71,8 +71,9 @@ exports.updateUser = (req,res,next) => {
 
 //created this controller to fetch team members
 exports.getMembers = (req,res,next) => {
+    console.log(req.teamname)
     //find all the users with the tokens team id and return only their i and name
-    Users.findAll({where:{team_id:req.team_id},attributes: ['id', 'username', 'role','profilepic']})
+    Users.findAll({where:{teamname:req.teamname},attributes: ['id', 'username', 'role','profilepic']})
     .then(users => {
         //return the users
        res.status(200).json(users)

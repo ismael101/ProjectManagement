@@ -6,7 +6,7 @@
           <v-alert v-if='error' type='error'>Authentication Error</v-alert>
           <h1 class='subheading grey--text my-10 align-center my-5'>Login</h1>
           <v-card width="600" flat>
-            <v-form  ref="form" v-model="valid" lazy-validation >
+            <v-form  ref="form" v-model="valid"  :lazy-validation="lazy">
               <v-text-field v-model='form.username' required outlined :rules='form.usernameRules' label='Enter Username'/>
               <v-text-field v-model="form.password" required outlined :rules='form.passwordRules' label='Enter Password'/>
               <v-btn outlined @click="submit" :disabled="!valid">
@@ -19,6 +19,7 @@
     </v-container>
   </div>
 </template>
+
 
 <script>
 import jsonwebtoken from 'jsonwebtoken'
@@ -40,8 +41,10 @@ export default {
   },
   methods:{
     submit(){
-      this.$users.login(this.form)
+      
+      this.$users.login({username:this.form.username,password:this.form.password})
                 .then(res => {
+                  console.log(res)
                   this.error = false
                   this.$store.dispatch('setToken', res.token)
                   let info = jsonwebtoken.decode(res.token)
@@ -50,8 +53,6 @@ export default {
                 })
                 .catch(() => {
                   this.error = true
-                  this.form.password = ''
-                  this.form.username = ''
                   this.valid = true
                 })
     }
@@ -59,10 +60,10 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .login{
   margin: auto;
   width: 50%;
-  padding-top: 25vh;
+  padding-top: 20vh;
 }
 </style>

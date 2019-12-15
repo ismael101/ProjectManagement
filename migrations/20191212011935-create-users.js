@@ -35,8 +35,9 @@ module.exports = {
       },
       teamname:{
         type:Sequelize.STRING,
-        onDelete:'SET NULL',
+        onDelete:'CASCADE',
         hooks:true,
+        allowNull:false,
         references: {
           model: 'Teams',
           key: 'name',

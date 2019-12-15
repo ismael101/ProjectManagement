@@ -9,6 +9,7 @@ export default new Vuex.Store({
     plugins:[createPersistedState()],
     state:{
         token:null,
+        auth:false,
         user:{
             username:'',
             id:''
@@ -24,6 +25,7 @@ export default new Vuex.Store({
         setUser(state,username,id){
             state.user.username = username
             state.user.id = id
+            state.auth = true
         },
         setProjects(state,projects){
             state.projects = projects
