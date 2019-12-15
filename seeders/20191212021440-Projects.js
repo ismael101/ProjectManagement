@@ -14,10 +14,10 @@ module.exports = {
     */
    //seed the database with this dummy data
     return queryInterface.bulkInsert('Projects',[
-      {name:"Train Luke",description:"We need to train luke on the ways of the jedi",status:true,team_id:1,createdAt: new Date(), updatedAt: new Date()},
-      {name:"Defeat Darth Vader",description:"The jedi need to defeat darth vader",status:false,team_id:1,createdAt: new Date(), updatedAt: new Date()},
-      {name:"Convert anakin",description:"Convert anakin skywalker to the dark side",status:true,team_id:2,createdAt: new Date(), updatedAt: new Date()},
-      {name:"Conquer the galaxy",description:"Conquer the entire galaxy",status:false,team_id:2,createdAt: new Date(), updatedAt: new Date()},
+      {name:"Train Luke",description:"We need to train luke on the ways of the jedi",status:true,teamid:1,createdAt: new Date(), updatedAt: new Date()},
+      {name:"Defeat Darth Vader",description:"The jedi need to defeat darth vader",status:false,teamid:1,createdAt: new Date(), updatedAt: new Date()},
+      {name:"Convert anakin",description:"Convert anakin skywalker to the dark side",status:true,teamid:2,createdAt: new Date(), updatedAt: new Date()},
+      {name:"Conquer the galaxy",description:"Conquer the entire galaxy",status:false,teamid:2,createdAt: new Date(), updatedAt: new Date()},
     ])
   },
 

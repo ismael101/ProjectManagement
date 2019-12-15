@@ -26,14 +26,16 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       },
-      project_id: {
+      projectid: {
+        allowNull:false,
         type: Sequelize.INTEGER,
         onDelete: 'CASCADE',
+        noUpdate:true,
         hooks:true,
         references: {
           model: 'Projects',
           key: 'id',
-          as: 'project_id'
+          as: 'projectid'
         }
       },
       assigned: {
@@ -46,13 +48,16 @@ module.exports = {
           as: 'assigned'
         }
       },
-      team_id:{
+      teamid:{
+        allowNull:false,
         type:Sequelize.INTEGER,
         onDelete: 'CASCADE',
+        noUpdate:true,
+        hooks:true,
         references:{
           model:'Teams',
           key:'id',
-          as:'team_id'
+          as:'teamid'
         }
       }
     });
