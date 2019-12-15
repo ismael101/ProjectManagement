@@ -17,13 +17,11 @@ const upload = multer({
     storage:storage
 })
 
-//added these routes to allow users to register, login, edit and fetch members from their groups
+//added these routes to allow users to register, login, and fetch members from their groups
 router.get('/members',auth,usersControllers.getMembers)
 
 router.post('/login',usersControllers.login)
 
 router.post('/register',upload.single('image'),usersControllers.register)
-
-router.patch('/',auth,usersControllers.updateUser)
 
 module.exports = router

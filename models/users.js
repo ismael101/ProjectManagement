@@ -31,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
   Users.associate = function(models) {
     // associations can be defined here
     Users.belongsTo(models.Teams,{
-      foreignKey: 'teamname',
+      foreignKey: 'teamid',
       onDelete: 'CASCADE'
     })
   };

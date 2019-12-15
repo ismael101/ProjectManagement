@@ -11,8 +11,8 @@ module.exports = (sequelize, DataTypes) => {
   Tasks.associate = function(models) {
     // associations can be defined here
     Tasks.belongsTo(models.Projects,{
-      foreignKey: 'project_id',
-      onDelete: 'cascade',
+      foreignKey: 'projectid',
+      onDelete: 'CASCADE',
       hooks:true
     })
     Tasks.belongsTo(models.Users,{
@@ -20,8 +20,8 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: 'SET NULL'
     })
     Tasks.belongsTo(models.Teams,{
-      foreignKey:'team_id',
-      onDelete:'cascade',
+      foreignKey:'teamid',
+      onDelete:'CASCADE',
       hooks:true
     })
   };

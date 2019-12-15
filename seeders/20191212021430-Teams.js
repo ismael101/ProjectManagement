@@ -14,8 +14,8 @@ module.exports = {
     */
    //seed the database with this dummy data
    return queryInterface.bulkInsert('Teams',[
-     {name:'jedi', createdAt: new Date(), updatedAt: new Date()},
-     {name:'sith', createdAt: new Date(), updatedAt: new Date()}
+     {name:'jedi',createdAt: new Date(), updatedAt: new Date()},
+     {name:'sith',createdAt: new Date(), updatedAt: new Date()}
    ])
   },
 
