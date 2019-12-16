@@ -26,16 +26,16 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       },
-      teamid: {
+      team: {
         allowNull:false,
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         onDelete: 'CASCADE',
         hooks:true,
         noUpdate:true,
         references: {
           model: 'Teams',
-          key: 'id',
-          as: 'teamid'
+          key: 'name',
+          as: 'team'
         }
       }
     });

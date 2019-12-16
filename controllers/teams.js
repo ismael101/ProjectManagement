@@ -1,14 +1,31 @@
 const Teams = require('../models/').Teams
+var Sequelize = require('sequelize')
 
 //this is a controller that allows authenticaticated the users to fetch the team name and id
 exports.getTeams = (req,res,next) => {
     Teams.findAll()
         .then((teams) => {
-            res.status(200).json(teams)
+            if(teams){
+                res.status(200).send(teams)
+            }else{
+                res.status(404).send('No Teams Found')
+            }
         })
-        .catch(error => {
-            res.status(400).json(error)
-            console.log(error)
+        .catch(err => {
+            next(err)
+        })
+}
+exports.getTeam = (req,res,next) => {
+    Teams.findOne({where:{id:req.params.id}})
+        .then((team) => {
+            if(team){
+                res.status(200).send(team)
+            }else{
+                res.status(404).send('No Team Found')
+            }
+        })
+        .catch(err => {
+            next(err)
         })
 }
 
@@ -18,14 +35,18 @@ exports.createTeam = (req,res,next) => {
     Teams.create(req.body)
          .then(() => {
              //if its a sucess than the user gets this message
-            res.status(200).json({message:'Team Created'})
+            res.status(200).send('Team Created')
          })
-         .catch(error => {
+         .catch(err => {
              //is there is a validation error then its raised here
-            if (error instanceof Sequelize.ValidationError) {
-                let messages = error.errors.map( (e) => e.message)
-                return res.status(400).json(messages)
-            }else{
+            if (err instanceof Sequelize.ValidationError) {
+                let messages = err.errors.map( (e) => e.message)
+                return res.status(400).send(messages)
+            }else if(err instanceof Sequelize.UniqueConstraintError){
+                let messages = err.errors.map((e) => e.message)
+                return res.status(400).send(messages)
+            }
+            else{
                 return next(error)
             }
          })
@@ -35,16 +56,12 @@ exports.createTeam = (req,res,next) => {
 //this controler lets users delete teams
 exports.deleteTeam = (req,res,next) => {
     //find the team to make the user is in the team
-    if(req.params.id == req.teamid){
-        Teams.destroy({where:{id:req.params.id}})
-            .then(() => {
-                res.status(200).json({message:'Team Deleted'})
-            })
-            .catch(() => {
-
-            })
-    }else{
-        res.status(401).json({message:'Un-Authorized Action'})
-    }
+    Teams.destroy({where:{name:req.team}})
+        .then(() => {
+            res.status(200).send('Team Deleted')
+        })
+        .catch(err => {
+            next(err)
+        })
 }
 

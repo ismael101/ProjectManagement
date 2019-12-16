@@ -38,26 +38,16 @@ module.exports = {
           as: 'projectid'
         }
       },
-      assigned: {
-        type: Sequelize.STRING,
-        onDelete: 'SET NULL',
-        hooks:true,
-        references: {
-          model: 'Users',
-          key: 'username',
-          as: 'assigned'
-        }
-      },
-      teamid:{
+      team: {
         allowNull:false,
-        type:Sequelize.INTEGER,
+        type: Sequelize.STRING,
         onDelete: 'CASCADE',
-        noUpdate:true,
         hooks:true,
-        references:{
-          model:'Teams',
-          key:'id',
-          as:'teamid'
+        noUpdate:true,
+        references: {
+          model: 'Teams',
+          key: 'name',
+          as: 'team'
         }
       }
     });

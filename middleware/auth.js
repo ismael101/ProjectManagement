@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken')
-
+const Teams = require('../models/').Teams
 //i created this middleware to authenticate the json web token
 module.exports = (req,res,next) => {
     try{
@@ -8,8 +8,7 @@ module.exports = (req,res,next) => {
         //decode the token
         const decoded = jwt.verify(token, process.env.KEY)
         //set the team id and user id here
-        req.teamid = decoded.teamid
-        req.userid = decoded.id
+        req.team = decoded.team
         //allow the request to pass
         next()
     }

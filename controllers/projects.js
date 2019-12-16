@@ -3,87 +3,95 @@ const Sequelize = require('sequelize')
 
 //created this controller to get all of the projects with the users team id
 exports.getProjects = (req,res,next) => {
-    Projects.findAll({where:{teamid:req.teamid}})
+    Projects.findAll({where:{team:req.team}})
             .then(projects => {
-                res.status(200).json(projects)
+                if(projects){
+                    res.status(200).send(projects)
+                }else{
+                    res.status(404).send('No Projects Found')
+                }
             })
             //returned a 404 not found error for not finding any projects with the users team id
-            .catch(error => {
-                console.log(error)
-                res.status(404).json({message:'Couldnt Find Projects Linked To Your Team'})
+            .catch(err => {
+                next(err)
             })
 }
 //created this controller to get a specific project with the users team id
 exports.getProject = (req,res,next) => {
-    Projects.findOne({where:{teamid:req.teamid, id:req.params.id}})
+    Projects.findOne({where:{team:req.team, id:req.params.id}})
             .then(project => {
-                res.status(200).json(project)
+                if(project){
+                    res.status(200).send(project)
+                }else{
+                    res.status(404).send('No Project Found')
+                }
             })
             //returned a 404 not found error for not finding any project with a corresponding id and team id
-            .catch(error => {
-                console.log(error)
-                res.status(404).json({message:'Could Find Projects Linked To Your Team'})
+            .catch(err => {
+                next(err)
             })
 }
 
 //created this controller to create a project
 exports.createProject = (req,res,next) => {
     //check if the tokens team id matches the team id in the json to prevent users from creating projects not for their authorized team
-    if(req.teamid == req.body.teamid){
+    if(req.team == req.body.team){
         //if it does i create the project here
         Projects.create(req.body)
                 .then(() => {
-                    res.status(200).json({message:'Project Created'})
+                    res.status(200).send('Project Created')
                 })
-                .catch(error => {
+                .catch(err => {
                     //if there are validation errors i catch them and send them to the user here
-                    if (error instanceof Sequelize.ValidationError) {
-                        let messages = error.errors.map( (e) => e.message)
-                        return res.status(400).json(messages)
+                    if (err instanceof Sequelize.ValidationError) {
+                        let messages = err.errors.map( (e) => e.message)
+                        return res.status(400).send(messages)
                     }else{
                         //if the error isn't a validation error than i pass it to the server js file 
-                        return next(error)
+                        return next(err)
                     }
                 })
     }else{
         //if the token team id doesnt match the team id in the body than i give a 401 unaithourized error
-        res.status(401).json({error:'Cannot Create Projects For Different Teams'})
+        res.status(401).send('Cannot Create Project For Different Team')
     }
 }
 
 //created this controller to update the project
 exports.updateProject = (req,res,next) => {
-    
-    //checked if the task the user wants to update is theirs to prevent user from updating tasks that arent theirs
-        Projects.update(req.body,{where:{id:req.params.id,teamid:req.teamid}})
-            .then(() => {
-                res.status(200).json({message:'Project Updated'})
-            })
-            .catch(error => {
-                if (error instanceof Sequelize.ValidationError) {
-                    let messages = error.errors.map( (e) => e.message)
-                    return res.status(400).json(messages)
+    //checked if the task the user wants to update is theirs to prevent user from updating tasks that arent theirs 
+    if(req.team == req.body.team){
+        Projects.update(req.body,{where:{id:req.params.id,team:req.team}})
+            .then((rm) => {
+                if(!rm[0]){
+                    res.status(404).send('No Project Found')
+                }else{
+                    res.status(200).send('Project Updated')
                 }
-                else if(error instanceof Sequelize.UniqueConstraintError){
-                    let messages = error.errors.map(( e => e.message))
-                    return res.status(400).json(messages)
+            })
+            .catch(err => {
+                if (err instanceof Sequelize.ValidationError) {
+                    let messages = err.errors.map( (e) => e.message)
+                    return res.status(400).send(messages)
                 }
                 else{
                     //if the error isn't a validation error than i pass it to the server js file
-                    return res.status(404).json({message:'Couldnt Find Project Linked To Your Team'})
+                    next(err)
                 }
             })
+    }else{
+        res.status(401).send('Cannot Change Team of Project')
+    }
+    
 }
-
 //created this controller to delete a project
 exports.deleteProject = (req,res,next) => {
     //checked if the user project corresponds with users team id
-    Projects.delete({where:{id:req.params.id,teamid:req.teamid}})
+        Projects.destroy({where:{id:req.params.id,team:req.team}})
             .then(() => {
-                res.status(200).json({message:'Project Deleted'})
+                res.status(200).send('Project Deleted')
             })
-            .catch(error => {
-                console.log(error)
-                res.status(404).json({message:'Couldnt Find Project Linked To Your Team'})
+            .catch(err => {
+                next(err)
             })
-}
+        }

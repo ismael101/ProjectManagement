@@ -21,7 +21,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull:false
       },
-      profilepic:{
+      pic:{
         type:Sequelize.STRING,
         allowNull:false
       },
@@ -33,16 +33,16 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       },
-      teamid:{
-        type:Sequelize.INTEGER,
+      team:{
+        type:Sequelize.STRING,
         onDelete:'CASCADE',
         hooks:true,
         allowNull:false,
         noUpdate:true,
         references: {
           model: 'Teams',
-          key: 'id',
-          as: 'teamid'
+          key: 'name',
+          as: 'team'
         }
       }
     });

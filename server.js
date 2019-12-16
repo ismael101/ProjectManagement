@@ -6,7 +6,6 @@ const users = require('./routes/users')
 const teams = require('./routes/teams')
 const tasks = require('./routes/tasks')
 const morgan = require('morgan')
-
 //allow server to parse json 
 app.use(express.json())
 //allow for cross origin resources
