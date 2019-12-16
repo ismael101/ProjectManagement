@@ -15,14 +15,10 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: 'CASCADE',
       hooks:true
     })
-    Tasks.belongsTo(models.Users,{
-      foreignKey: 'assigned',
-      onDelete: 'SET NULL'
-    })
     Tasks.belongsTo(models.Teams,{
-      foreignKey:'teamid',
-      onDelete:'CASCADE',
-      hooks:true
+      foreignKey: 'team',
+        onDelete: 'CASCADE',
+        hooks:true  
     })
   };
   return Tasks;

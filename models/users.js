@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       type:DataTypes.STRING,
       allowNull:false
     },
-    profilepic:{
+    pic:{
       type:DataTypes.STRING,
       allowNull:false
     }
@@ -31,9 +31,10 @@ module.exports = (sequelize, DataTypes) => {
   Users.associate = function(models) {
     // associations can be defined here
     Users.belongsTo(models.Teams,{
-      foreignKey: 'teamid',
+      foreignKey: 'team',
       onDelete: 'CASCADE'
     })
   };
+
   return Users;
 };
