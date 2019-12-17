@@ -6,11 +6,17 @@ module.exports = (sequelize, DataTypes) => {
     username: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique:true
+      unique:true,
+      validate: {
+        len: [4, 10]
+      }
     },
     password: {
       type: DataTypes.STRING,
-      allowNull:false
+      allowNull:false,
+      validate: {
+        len: [6, 15]
+      }
     },
     role:{
       type:DataTypes.STRING,
@@ -25,8 +31,8 @@ module.exports = (sequelize, DataTypes) => {
       //hashsing password after its validated
       afterValidate: (user) => {
         user.password = bcrypt.hashSync(user.password,salt)
-      }
-    }
+      },
+    },
   });
   Users.associate = function(models) {
     // associations can be defined here

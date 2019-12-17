@@ -1,9 +1,20 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Tasks = sequelize.define('Tasks', {
-    name: DataTypes.STRING,
-    description: DataTypes.STRING,
-    status:{
+    name: {
+      type:DataTypes.STRING,
+      allowNull:false,
+      validate: {
+        len: [5, 100]
+      }
+    },
+    description:{
+      type:DataTypes.TEXT,
+      validate: {
+        len: [5, 100]
+      }
+    },
+    completed:{
       type:DataTypes.BOOLEAN,
       defaultValue:false
     }
@@ -13,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
     Tasks.belongsTo(models.Projects,{
       foreignKey: 'projectid',
       onDelete: 'CASCADE',
-      hooks:true
+      hooks:true,
     })
     Tasks.belongsTo(models.Teams,{
       foreignKey: 'team',

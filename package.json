@@ -4,7 +4,7 @@
   "description": "This is an application that helps users create team projects",
   "main": "server.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=test jest --testTimeout=10000",
+    "test": "cross-env NODE_ENV=test jest tests/teams.test.js --testTimeout=10000 && jest tests/users.test.js --testTimeout=1000 && jest tests/projects.test.js --testTimeout=1000 && jest tests/tasks.test.js --testTimeout=1000",
     "pretest": "cross-env NODE_ENV=test npm run migrate",
     "migrate": "npx sequelize-cli db:migrate",
     "start": "nodemon server.js"
@@ -22,7 +22,8 @@
     "nodemon": "^2.0.2",
     "pg": "^7.14.0",
     "sequelize": "^5.21.2",
-    "sequelize-cli": "^5.5.1"
+    "sequelize-cli": "^5.5.1",
+    "sequelize-noupdate-attributes": "^1.0.0"
   },
   "devDependencies": {
     "cross-env": "^6.0.3",

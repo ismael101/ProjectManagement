@@ -9,6 +9,7 @@ module.exports = (req,res,next) => {
         const decoded = jwt.verify(token, process.env.KEY)
         //set the team id and user id here
         req.team = decoded.team
+        req.id = decoded.id
         //allow the request to pass
         next()
     }
