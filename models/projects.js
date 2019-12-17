@@ -4,9 +4,17 @@ module.exports = (sequelize, DataTypes) => {
     name: {
       type:DataTypes.STRING,
       allowNull:false, 
+      validate: {
+        len: [5, 100]
+      }
     },
-    description: DataTypes.STRING,
-    status:{
+    description:{
+      type:DataTypes.TEXT,
+      validate: {
+        len: [5, 100]
+      }
+    },
+    completed:{
       type:DataTypes.BOOLEAN,
       defaultValue:false
     }

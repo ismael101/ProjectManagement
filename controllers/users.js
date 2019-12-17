@@ -46,15 +46,16 @@ exports.register = (req,res,next) => {
                 .catch(err => {
                     if (err instanceof Sequelize.ValidationError) {
                         let messages = err.errors.map( (e) => e.message)
-                        console.log(messages)
                         return res.status(400).send(messages)
                     }else if(err instanceof Sequelize.UniqueConstraintError){
                         let messages = err.errors.map((e) => e.message)
                         return res.status(400).send(messages)
+                    }else if(err instanceof Sequelize.ForeignKeyConstraintError){
+                        return res.status(400).send(err.message)
                     }
                     else{
                         //if the error isn't a validation error than i pass it to the server js file
-                        return next(error)
+                        return next(err)
                     }
                 })
 }
@@ -66,11 +67,7 @@ exports.getMembers = (req,res,next) => {
     Users.findAll({where:{team:req.team},attributes: ['id', 'username', 'role','pic']})
     .then(users => {
         //return the users
-       if(users){
-           res.status(200).send(users)
-       }else{
-           res.status(404).send('No Members Found')
-       }
+        res.status(200).send(users)
     })
     //if there are no users with that team id
     .catch(err => {

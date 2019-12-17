@@ -35,7 +35,7 @@ exports.getProject = (req,res,next) => {
 //created this controller to create a project
 exports.createProject = (req,res,next) => {
     //check if the tokens team id matches the team id in the json to prevent users from creating projects not for their authorized team
-    if(req.team == req.body.team){
+    if(req.team == req.body.team || req.body.team == null){
         //if it does i create the project here
         Projects.create(req.body)
                 .then(() => {
@@ -60,11 +60,11 @@ exports.createProject = (req,res,next) => {
 //created this controller to update the project
 exports.updateProject = (req,res,next) => {
     //checked if the task the user wants to update is theirs to prevent user from updating tasks that arent theirs 
-    if(req.team == req.body.team){
+    if(req.team == req.body.team || req.body.team == null){
         Projects.update(req.body,{where:{id:req.params.id,team:req.team}})
             .then((rm) => {
                 if(!rm[0]){
-                    res.status(404).send('No Project Found')
+                    res.status(404).send('Project Not Updated')
                 }else{
                     res.status(200).send('Project Updated')
                 }
@@ -73,6 +73,9 @@ exports.updateProject = (req,res,next) => {
                 if (err instanceof Sequelize.ValidationError) {
                     let messages = err.errors.map( (e) => e.message)
                     return res.status(400).send(messages)
+                }else if(err instanceof Sequelize.ForeignKeyConstraintError){
+                    let messages = err.errors.map( (e) => e.message)
+                    return res.status(400).send(messages) 
                 }
                 else{
                     //if the error isn't a validation error than i pass it to the server js file

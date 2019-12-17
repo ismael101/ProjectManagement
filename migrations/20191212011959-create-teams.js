@@ -11,7 +11,10 @@ module.exports = {
       name: {
         type: Sequelize.STRING,
         allowNull:false,
-        unique:true
+        unique:true,
+        validate: {
+          len: [5, 10]
+        }
       },
       createdAt: {
         allowNull: false,
