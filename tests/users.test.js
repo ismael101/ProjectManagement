@@ -1,6 +1,5 @@
 const request = require('supertest')
 const server = require('../server')
-
 afterAll(() => {
     server.close()
   });
@@ -13,7 +12,7 @@ describe('Testing User Functionality',() => {
         .field('password','password101')
         .field('role','padawan')
         .field('team','jedi')
-        .attach('image','/home/ismael/Projects/project_management/images/luke.png')
+        .attach('image','tests/luke.png')
         expect(res.statusCode).toEqual(200)
     })
     it('test creating duplicate user', async() => {
@@ -22,7 +21,7 @@ describe('Testing User Functionality',() => {
         .field('password','password101')
         .field('role','padawan')
         .field('team','jedi')
-        .attach('image','/home/ismael/Projects/project_management/images/luke.png')
+        .attach('image','tests/luke.png')
         expect(res.statusCode).toEqual(400)
     })
     it('test user validation', async() => {
@@ -32,7 +31,7 @@ describe('Testing User Functionality',() => {
         .field('password','password101')
         .field('role','padawan')
         .field('team','jedi')
-        .attach('image','/home/ismael/Projects/project_management/images/luke.png')
+        .attach('image','tests/luke.png')
         expect(res1.statusCode).toEqual(400)
         //testing if the model will accept password this short
         const res2 = await request(server).post('/users/register')
@@ -40,7 +39,7 @@ describe('Testing User Functionality',() => {
         .field('password','pass')
         .field('role','padawan')
         .field('team','jedi')
-        .attach('image','/home/ismael/Projects/project_management/images/luke.png')
+        .attach('image','tests/luke.png')
         expect(res2.statusCode).toEqual(400)
         //testing if the model will accept team that doesnt exist
         const res3 = await request(server).post('/users/register')
@@ -48,7 +47,7 @@ describe('Testing User Functionality',() => {
         .field('password','password101')
         .field('role','padawan')
         .field('team','acasdcasc')
-        .attach('image','/home/ismael/Projects/project_management/images/luke.png')
+        .attach('image','tests/luke.png')
         expect(res3.statusCode).toEqual(400)
 
     })
@@ -68,14 +67,14 @@ describe('Testing User Functionality',() => {
         .field('password','password102')
         .field('role','jedi master')
         .field('team','jedi')
-        .attach('image','/home/ismael/Projects/project_management/images/obiwan.png')
+        .attach('image','tests/obiwan.png')
 
         await request(server).post('/users/register')
         .field('username','vader')
         .field('password','password103')
         .field('role','sith lord')
         .field('team','sith')
-        .attach('image','/home/ismael/Projects/project_management/images/vader.png')
+        .attach('image','tests/vader.png')
 
         //login for tokens
         const auth1 = await request(server).post('/users/login').send({username:'luke',password:'password101'})
