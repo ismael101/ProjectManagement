@@ -11,8 +11,12 @@ export default{
             return response.data
         })
     },
-    update(data){
-        return axios.post('/users/update',data).then(response => {
+    members(token){
+        return axios.post('/users/members',{
+            headers:{
+                Authorization: `Bearer ${token}`
+            }
+        }).then(response => {
             return response.data
         })
     }

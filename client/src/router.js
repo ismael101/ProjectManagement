@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Projects from './views/Projects'
 import Team from './views/Team'
-import Chat from './views/Chat'
+import Tasks from './views/Tasks'
 import NotFound from './views/NotFound'
 import Login from './views/Login'
 import Register from './views/Register'
@@ -29,9 +29,9 @@ export default new Router({
             component:Projects
         },
         {
-            path:'/chat',
-            name:'chat',
-            component:Chat
+            path:'/tasks/:id',
+            name:'task',
+            component:Tasks
         },
         {
             path:'/team',
