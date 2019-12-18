@@ -8,14 +8,9 @@
           <h1 class='subheading grey--text my-10 align-center my-5'>Register</h1>
       <v-card flat width='800'>
         <v-form ref="form" v-model="valid" :lazy-validation="lazy">
-        <v-row no-gutters>
-          <v-col class="col-6">
             <v-text-field outlined v-model='form.username' :rules='form.usernameRules' label='Enter Username' required></v-text-field>
-          </v-col>
-          <v-col class="col-6">
             <v-text-field outlined v-model='form.team' :rules="form.teamRules" label="Enter Team" required></v-text-field>
-          </v-col>
-        </v-row>
+
         <v-text-field outlined v-model='form.password' :rules='form.passwordRules' label="Enter Password">
 
         </v-text-field>

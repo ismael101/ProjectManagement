@@ -14,7 +14,7 @@ exports.login = (req,res,next) => {
                 let auth = bcrypt.compareSync(req.body.password,user.password)
             if(auth){
                 //if the password is correct return a json web token
-                const token = jwt.sign({id:user.id,team:user.team},process.env.KEY,{expiresIn:'2h'})    
+                const token = jwt.sign({id:user.id,team:user.team,username:user.username,pic:user.pic},process.env.KEY,{expiresIn:'2h'})    
                 res.status(200).json({token:token})
             }
             else{

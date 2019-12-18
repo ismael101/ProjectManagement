@@ -41,7 +41,6 @@ export default {
   },
   methods:{
     submit(){
-      
       this.$users.login({username:this.form.username,password:this.form.password})
                 .then(res => {
                   console.log(res)
@@ -51,7 +50,8 @@ export default {
                   this.$store.dispatch('setUser', {username:info.username,id:info.id,teamid:info.teamid})
                   this.$router.push({name:'projects'})
                 })
-                .catch(() => {
+                .catch((err) => {
+                  console.log(err)
                   this.error = true
                   this.valid = true
                 })

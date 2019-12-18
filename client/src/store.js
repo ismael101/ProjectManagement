@@ -14,6 +14,7 @@ export default new Vuex.Store({
             username:'',
             id:''
         },
+        chat:[],
         projects:[],
         tasks:[],
         team:[]
