@@ -6,8 +6,12 @@ export default{
             return response.data
         })
     },
-    register(credentials){
-        return axios.post('/users/register',credentials).then(response => {
+    register(data){
+        return axios.post('/users/register',data,{
+            headers:{
+                'Content-Type': 'multipart/form-data'
+            }
+        }).then(response => {
             return response.data
         })
     },

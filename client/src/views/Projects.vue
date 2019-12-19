@@ -69,12 +69,19 @@ export default {
     deleteProject(id){
       this.$projects.deleteProject(this.$store.state.token,id)
                     .then(() => {
-                      this.$store.dispatch('deleteProject',id)
+                      this.$projects.getProjects(this.$store.state.token)
+                      .then(projects => {
+                          this.$store.dispatch('setProjects', projects)
+                          this.team = projects[0].team
+                      })
+                      .catch(err => {
+                        console.log(err)
+                        this.$store.dispatch('Dump')
+                        this.$router.push(login)
+                      })
                     })
                     .catch(err => {
                       console.log(err)
-                      this.$store.dispatch('Dump')
-                      this.$router.push(login)
                     })
     },
     tasks(id){

@@ -33,9 +33,9 @@ export default{
     },
     deleteProject(token,id){
         return axios.delete(`/projects/${id}`,{
-           headers:{
-               Authentication:`Bearer ${token}`
-           } 
+            headers:{
+                Authorization: `Bearer ${token}`
+            }
         })
         .then(response => {
             return response.data
