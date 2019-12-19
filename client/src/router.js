@@ -6,6 +6,7 @@ import Tasks from './views/Tasks'
 import NotFound from './views/NotFound'
 import Login from './views/Login'
 import Register from './views/Register'
+import store from './store';
 
 Vue.use(Router)
 
@@ -16,27 +17,67 @@ export default new Router({
         {
             path:'/',
             name:'login',
-            component:Login
+            component:Login,
+            beforeEnter: (to,from,next) => {
+                if(store.state.auth){
+                    next({name:'projects'})
+                }
+                else{
+                  next()
+                }
+              }
         },
         {
             path:'/register',
             name:'register',
-            component:Register
+            component:Register,
+            beforeEnter: (to,from,next) => {
+                if(store.state.auth){
+                    next({name:'projects'})
+                }
+                else{
+                  next()
+                }
+              }
         },
         {
             path:'/projects',
             name:'projects',
-            component:Projects
+            component:Projects,
+            beforeEnter: (to,from,next) => {
+                if(store.state.auth){
+                    next()
+                }
+                else{
+                  next({name:'login'})
+                }
+              }
         },
         {
             path:'/tasks/:id',
             name:'task',
-            component:Tasks
+            component:Tasks,
+            beforeEnter: (to,from,next) => {
+                if(store.state.auth){
+                    next()
+                }
+                else{
+                  next({name:'login'})
+                }
+              }
         },
         {
             path:'/team',
             name:'team',
-            component:Team
+            component:Team,
+            beforeEnter: (to,from,next) => {
+                if(store.state.auth){
+                    next()
+                }
+                else{
+                  next({name:'login'})
+                }
+              }
         },
         {
             path:'*',

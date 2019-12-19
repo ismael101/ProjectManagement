@@ -69,8 +69,8 @@ export default {
     },
     methods:{
         signout(){
+           this.$store.dispatch('Dump')
             this.$router.push({path:'/'})
-            this.$store.dispatch('Dump')
         },
         register(){
             this.$router.push({path:'/register'})
