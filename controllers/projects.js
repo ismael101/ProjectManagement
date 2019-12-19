@@ -65,7 +65,9 @@ exports.updateProject = (req,res,next) => {
             .then((rm) => {
                 if(!rm[0]){
                     res.status(404).send('Project Not Updated')
+                    console.log(req.body)
                 }else{
+
                     res.status(200).send('Project Updated')
                 }
             })

@@ -24,10 +24,7 @@
 
 <script>
 export default {
-  props:{
-    id:Number,
-    type:String
-  },
+  props:['type','id'],
   data(){
     return{
       form:{
@@ -40,11 +37,50 @@ export default {
   },
   methods:{
     submit(){
-      if(this.type = 'project'){
-        this.$projects.updateProject(this.$store.state.token,this.form)
+      if(this.type == 'project'){
+        let data = {
+          id:this.id,
+          name:this.form.name,
+          description:this.form.description,
+          completed:this.form.completed
+        }
+        this.$projects.updateProject(this.$store.state.token,data)
+                      .then(() => {
+                        console.log(this.$store.state.token)
+                         this.$projects.getProjects(this.$store.state.token)
+                            .then(projects => {
+                              console.log(projects)
+                              this.$store.dispatch('setProjects',projects)
+                            })
+                            .catch(err => {
+                              console.log(err)
+                            })
+                      })
+                      .catch(err => {
+                        console.log(err)
+                      })     
         this.dialog = false
-      }else if(this.type = 'task'){
-        this.$tasks.updateTask(this.$store.state.token,this.form)
+      }else if(this.type == 'task'){
+        let data = {
+          id:this.id,
+          name:this.form.name,
+          description:this.form.description,
+          completed:this.form.completed
+        }
+        this.$tasks.updateTask(this.$store.state.token,data)
+                      .then(() => {
+                         this.$tasks.getTasks(this.$store.state.token)
+                            .then(tasks => {
+                              console.log(tasks)
+                              this.$store.dispatch('setTasks',tasks)
+                            })
+                            .catch(err => {
+                              console.log(err)
+                            })
+                      })
+                      .catch(err => {
+                        console.log(err)
+                      })     
         this.dialog = false
       }
     },
@@ -52,17 +88,16 @@ export default {
         this.dialog = false
     },
     getData(){
-        if(this.type = 'project'){
-            let project = this.$store.state.projects.filter(project => project.id == this.id)
-            this.form.name = project.name
-            this.form.description = project.description
-            this.form.completed = project.completed
-            console.log(this.props)
+        if(this.type == 'project'){
+          let project = this.$store.state.projects.filter(project => project.id == this.id)
+          this.form.name = project[0].name
+          this.form.description = project[0].description
+          this.form.completed = project[0].completed
         }else if(this.type = 'task'){
-            let task = this.$store.state.tasks.filter(task => task.id == this.id)
-            this.form.name = task.name
-            this.form.description = task.description
-            this.form.completed = task.completed
+          let task = this.$store.state.tasks.filter(task => task.id == this.id)
+          this.form.name = task[0].name
+          this.form.description = task[0].description
+          this.form.completed = task[0].completed
         }
     }
   },

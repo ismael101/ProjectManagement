@@ -23,9 +23,7 @@
 
 <script>
 export default {
-  props:{
-    type:String
-  },
+  props:['type','projectid','team'],
   data(){
     return{
       form:{
@@ -37,11 +35,46 @@ export default {
   },
   methods:{
     submit(){
-      if(this.type = 'project'){
-        this.$projects.createProject(this.$store.state.token,this.form)
+      if(this.type == 'project'){
+        let data = {
+          name:this.form.name,
+          description:this.form.description,
+          team:this.team
+        }
+        this.$projects.createProject(this.$store.state.token,data)
+                      .then(res => {
+                        this.$projects.getProjects(this.$store.state.token)
+                                      .then(projects => {
+                                          this.$store.dispatch('setProjects', projects)
+                                      })
+                                      .catch(err => {
+                                        console.log(err)
+                                      })
+                      })
+                      .catch(err => {
+                        console.log(err)
+                      })
         this.dialog = false
-      }else if(this.type = 'task'){
-        this.$tasks.createTask(this.$store.state.token,this.form)
+      }else if(this.type == 'task'){
+        let data = {
+          name:this.form.name,
+          description:this.form.description,
+          projectid:this.projectid,
+          team:this.team
+        }
+        this.$tasks.createTask(this.$store.state.token,data)
+                  .then(() => {
+                    this.$tasks.getTasks(this.$store.state.token)
+                              .then(tasks => {
+                                this.$store.dispatch('setTasks',tasks)
+                              })
+                              .catch(err => {
+                                console.log(err)
+                              })
+                  })
+                  .catch(err => {
+                    console.log(err)
+                  })
         this.dialog = false
       }
     },

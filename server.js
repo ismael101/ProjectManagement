@@ -10,7 +10,7 @@ const morgan = require('morgan')
 app.use(express.json())
 //allow for cross origin resources
 app.use(cors())
-//app.use(morgan('dev'))
+app.use(morgan('dev'))
 //show static user images here
 app.use('/images', express.static('images/'))
 //expose the routes here

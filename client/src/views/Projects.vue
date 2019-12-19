@@ -3,7 +3,7 @@
    <v-app-bar flat>
      <v-toolbar-title>Projects</v-toolbar-title>
      <v-spacer/>
-     <Add type='project'></Add>
+     <Add type='project' :team='team'></Add>
    </v-app-bar>
     <v-divider></v-divider>
       <v-container fluid class="my-5">
@@ -50,6 +50,7 @@ export default {
   components:{Edit,Add},
   data(){
     return{
+      team:''
     }
   },
   methods:{
@@ -57,11 +58,12 @@ export default {
       this.$projects.getProjects(this.$store.state.token)
                     .then(projects => {
                         this.$store.dispatch('setProjects', projects)
+                        this.team = projects[0].team
                     })
                     .catch(err => {
                       console.log(err)
-                      //this.$store.dispatch('Dump')
-                      //this.$router.push(login)
+                      this.$store.dispatch('Dump')
+                      this.$router.push(login)
                     })
     },
     deleteProject(id){
@@ -71,8 +73,8 @@ export default {
                     })
                     .catch(err => {
                       console.log(err)
-                      //this.$store.dispatch('Dump')
-                      //this.$router.push(login)
+                      this.$store.dispatch('Dump')
+                      this.$router.push(login)
                     })
     },
     tasks(id){
