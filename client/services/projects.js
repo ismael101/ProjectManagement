@@ -4,7 +4,7 @@ export default{
     getProjects(token){
         return axios.get('/projects/',{
             headers:{
-                Authentication:`Bearer ${token}`
+                Authorization: `Bearer ${token}`
             }
         })
         .then(response => {

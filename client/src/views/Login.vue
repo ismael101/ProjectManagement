@@ -8,7 +8,7 @@
           <v-card width="600" flat>
             <v-form  ref="form" v-model="valid"  :lazy-validation="lazy">
               <v-text-field v-model='form.username' required outlined :rules='form.usernameRules' label='Enter Username'/>
-              <v-text-field v-model="form.password" required outlined :rules='form.passwordRules' label='Enter Password'/>
+              <v-text-field v-model="form.password"  type='password' required outlined :rules='form.passwordRules' label='Enter Password'/>
               <v-btn outlined @click="submit" :disabled="!valid">
                 Login
               </v-btn>
@@ -28,6 +28,7 @@ export default {
   data(){
     return{
       valid: true,
+      lazy: false,
       form:{
         username:'',
         usernameRules:[
@@ -47,7 +48,7 @@ export default {
                   this.error = false
                   this.$store.dispatch('setToken', res.token)
                   let info = jsonwebtoken.decode(res.token)
-                  this.$store.dispatch('setUser', {username:info.username,id:info.id,teamid:info.teamid})
+                  this.$store.dispatch('setUser', {username:info.username,pic:info.pic,id:info.id})
                   this.$router.push({name:'projects'})
                 })
                 .catch((err) => {

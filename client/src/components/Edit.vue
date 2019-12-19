@@ -24,7 +24,10 @@
 
 <script>
 export default {
-  props:['type','id'],
+  props:{
+    id:Number,
+    type:String
+  },
   data(){
     return{
       form:{
@@ -54,6 +57,7 @@ export default {
             this.form.name = project.name
             this.form.description = project.description
             this.form.completed = project.completed
+            console.log(this.props)
         }else if(this.type = 'task'){
             let task = this.$store.state.tasks.filter(task => task.id == this.id)
             this.form.name = task.name

@@ -4,7 +4,7 @@ export default{
     getTasks(token){
         return axios.get('/tasks/',{
             headers:{
-                Authentication:`Bearer ${token}`
+                Authorization: `Bearer ${token}`
             }
         })
         .then(response => {

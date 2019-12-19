@@ -12,7 +12,7 @@ export default{
         })
     },
     members(token){
-        return axios.post('/users/members',{
+        return axios.get('/users/members',{
             headers:{
                 Authorization: `Bearer ${token}`
             }
