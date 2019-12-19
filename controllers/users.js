@@ -39,6 +39,7 @@ exports.register = (req,res,next) => {
                 team:req.body.team,
                 pic:`http://localhost:5000/${req.file.path}`
             }
+            console.log(body)
             Users.create(body)
                 .then(() => {
                     res.status(200).json({message:'User Created'})   

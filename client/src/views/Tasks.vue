@@ -67,7 +67,17 @@ export default {
     deleteTask(id){
       this.$tasks.deleteTask(this.$store.state.token,id)
                 .then(() => {
-                  this.$store.dispatch('deleteTask',id)
+                  this.$tasks.getTasks(this.$store.state.token)
+                  .then(tasks =>{
+                    this.$store.dispatch('setTasks', tasks)
+                    let projects = this.$store.state.projects.filter(project => project.id == this.$route.params.id)
+                    this.name = projects[0].name
+                    this.projectid = projects[0].id
+                    this.team = projects[0].team
+                  })
+                  .catch(err => {
+                    console.log(err)
+                  })
                 })
                 .catch(err => {
                   console.log(err)

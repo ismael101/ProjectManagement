@@ -33,9 +33,9 @@ export default{
     },
     deleteTask(token,id){
         return axios.delete(`/tasks/${id}`,{
-           headers:{
-               Authentication:`Bearer ${token}`
-           } 
+            headers:{
+                Authorization: `Bearer ${token}`
+            }
         })
         .then(response => {
             return response.data

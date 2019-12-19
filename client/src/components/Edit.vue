@@ -7,14 +7,14 @@
       <v-card>
           <v-card-title>Edit</v-card-title>
           <v-card-text>
-          <v-form>
-              <v-text-field placeholder='Name' outlined v-model='form.name'></v-text-field>
-              <v-textarea placeholder="Description" outlined v-model='form.description'></v-textarea>
+          <v-form ref='form' v-model='valid' :lazy-validation="lazy">
+              <v-text-field placeholder='Name' outlined v-model='form.name' :rules='form.nameRules' required></v-text-field>
+              <v-textarea placeholder="Description" outlined v-model='form.description' :rules='form.descriptionRules' required></v-textarea>
               <v-switch v-model="form.completed" label="Complete"></v-switch>
           </v-form>
           </v-card-text>
           <v-card-actions>
-              <v-btn outlined color='cyan' @click="submit">submit</v-btn>
+              <v-btn outlined color='cyan' @click="submit" :disabled="!valid">submit</v-btn>
               <v-btn outlined color='red' @click="close">close</v-btn>
           </v-card-actions>
       </v-card>
@@ -27,12 +27,22 @@ export default {
   props:['type','id'],
   data(){
     return{
+      valid: true,
       form:{
           name:'',
+          nameRules: [
+            v => !!v || 'Name is required',
+            v => (v && v.length <= 10) || 'Name must be less than 10 characters',
+          ],
           description:'',
+          descriptionRules: [
+            v => !!v || 'Description is required',
+            v => (v && v.length >= 10) || 'Description must be atleast 10 characters',
+          ],
           completed:false
       },
-      dialog:false
+      dialog:false,
+      lazy: false
     }
   },
   methods:{
@@ -58,7 +68,8 @@ export default {
                       })
                       .catch(err => {
                         console.log(err)
-                      })     
+                      })  
+        this.$refs.form.resetValidation()  
         this.dialog = false
       }else if(this.type == 'task'){
         let data = {
@@ -80,7 +91,8 @@ export default {
                       })
                       .catch(err => {
                         console.log(err)
-                      })     
+                      })
+        this.$refs.form.resetValidation()   
         this.dialog = false
       }
     },
