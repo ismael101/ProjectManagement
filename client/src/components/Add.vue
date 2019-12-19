@@ -27,9 +27,11 @@
 
 <script>
 export default {
+  //passed props
   props:['type','projectid','team'],
   data(){
     return{
+      //added model data and form rules
       valid: true,
       form:{
         name:'',
@@ -49,6 +51,7 @@ export default {
   },
   methods:{
     submit(){
+      //submiting the project or task
       if(this.type == 'project'){
         let data = {
           name:this.form.name,

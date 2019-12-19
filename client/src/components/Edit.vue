@@ -24,9 +24,11 @@
 
 <script>
 export default {
+  //props
   props:['type','id'],
   data(){
     return{
+      //v-model and form validation
       valid: true,
       form:{
           name:'',
@@ -46,6 +48,7 @@ export default {
     }
   },
   methods:{
+    //updating and fetching the project or task
     submit(){
       if(this.type == 'project'){
         let data = {

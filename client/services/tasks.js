@@ -1,5 +1,5 @@
 import axios from 'axios'
-
+//added functions here to fetch,create,update and delete tasks
 export default{
     getTasks(token){
         return axios.get('/tasks/',{

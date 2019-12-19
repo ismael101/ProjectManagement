@@ -1,5 +1,5 @@
 import axios from 'axios'
-
+//added functions here to fetch,create,update and delete projects
 export default{
     getProjects(token){
         return axios.get('/projects/',{

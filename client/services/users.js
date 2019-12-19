@@ -1,5 +1,5 @@
 import axios from 'axios'
-
+//added functions here to login,register and fetch team members
 export default{
     login(credentials){
         return axios.post('/users/login',credentials).then(response => {
