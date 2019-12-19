@@ -12,19 +12,19 @@ export default{
         })
     },
     createProject(token,data){
-        return axios.get('/projects/',data,{
-           headers:{
-               Authentication:`Bearer ${token}`
-           } 
+        return axios.post('/projects/',data,{
+            headers:{
+                Authorization: `Bearer ${token}`
+            }
         })
         .then(response => {
             return response.data
         })
     },
     updateProject(token, data){
-        return axios.patch('/projects/',data,{
+        return axios.patch(`/projects/${data.id}`,data,{
             headers:{
-                Authentication:`Bearer ${token}`
+                Authorization:`Bearer ${token}`
             }
         })
         .then(response => {

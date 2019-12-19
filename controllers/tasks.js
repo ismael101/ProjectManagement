@@ -44,6 +44,7 @@ exports.createTask = (req,res,next) => {
                                 res.status(200).send('Task Created')
                             })
                             .catch(err => {
+                                console.log(err)
                                 if (err instanceof Sequelize.ValidationError) {
                                     let messages = err.errors.map( (e) => e.message)
                                     return res.status(400).send(messages)

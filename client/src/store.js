@@ -8,7 +8,7 @@ export default new Vuex.Store({
     strict:true,
     plugins:[createPersistedState()],
     state:{
-        token:null,
+        token:'',
         auth:false,
         username:'',
         pic:'',
@@ -37,7 +37,7 @@ export default new Vuex.Store({
             state.team = team
         },
         Dump(state){
-            state.token = null,
+            state.token = '',
             state.auth = false
             state.username = '',
             state.id = '',

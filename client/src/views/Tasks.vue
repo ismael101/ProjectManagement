@@ -3,7 +3,7 @@
    <v-app-bar flat>
      <v-toolbar-title>Tasks for Project: {{name}}</v-toolbar-title>
      <v-spacer/>
-     <Add type='task'></Add>
+     <Add type='task' :team='team' v-bind:projectid='projectid'></Add>
    </v-app-bar>
     <v-divider></v-divider>
       <v-container fluid class="my-5">
@@ -45,7 +45,9 @@ export default {
   components:{Edit,Add},
   data(){
     return{
-      name:''
+      name:'',
+      projectid:'',
+      team:''
     }
   },
   methods:{
@@ -55,7 +57,8 @@ export default {
                     this.$store.dispatch('setTasks', tasks)
                     let projects = this.$store.state.projects.filter(project => project.id == this.$route.params.id)
                     this.name = projects[0].name
-                    console.log(this.name)
+                    this.projectid = projects[0].id
+                    this.team = projects[0].team
                   })
                   .catch(err => {
                     console.log(err)

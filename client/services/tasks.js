@@ -12,19 +12,19 @@ export default{
         })
     },
     createTask(token,data){
-        return axios.get('/tasks/',data,{
-           headers:{
-               Authentication:`Bearer ${token}`
-           } 
+        return axios.post('/tasks/',data,{
+            headers:{
+                Authorization: `Bearer ${token}`
+            }
         })
         .then(response => {
             return response.data
         })
     },
     updateTask(token, data){
-        return axios.patch('/tasks/',data,{
+        return axios.patch(`/tasks/${data.id}`,data,{
             headers:{
-                Authentication:`Bearer ${token}`
+                Authorization:`Bearer ${token}`
             }
         })
         .then(response => {
