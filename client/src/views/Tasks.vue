@@ -1,53 +1,61 @@
 <template>
-  <div>
-   <v-app-bar>
-     <v-toolbar-title>Tasks</v-toolbar-title>
+   <div>
+   <v-app-bar flat>
+     <v-toolbar-title>Tasks for Project: {{name}}</v-toolbar-title>
      <v-spacer/>
+     <Add type='task'></Add>
    </v-app-bar>
     <v-divider></v-divider>
-     <v-container class="my-5">
-      <v-card flat v-for="task in this.$store.state.tasks.filter(task => task.projectid == this.$route.params.projectid)" :key="task.id" class="project">
-        <v-layout row wrap class="`pa-3`">
-          <v-flex xs12 md4>
-            <div class="caption grey--text text-center">Task Title</div>
-            <div class="text-center">{{ task.name }}</div>
+      <v-container fluid class="my-5">
+      <v-card height="150px" flat v-for="task in this.$store.state.tasks.filter(task => task.projectid  == $route.params.id)" :key="task.id" :class='task.completed'>
+        <v-layout row wrap >
+          <v-flex xs6 sm3 md3>
+            <h2 class="text-center grey--text text-xs-center">Title</h2>
+            <h3 class="text-center grey--text text-xs-center">{{ task.name }}</h3>
           </v-flex>
-          <v-flex xs12 sm3 md2>
-            <div class="caption grey--text text-center">Task Desc.</div>
-            <div class="text-center">{{ task.description.substring(0,20) }}</div>
+          <v-flex xs6 sm3 md3>
+            <h2 class="text-center grey--text text-xs-center">Description</h2>
+            <h3 class="text-center grey--text text-xs-center">{{ task.description.substring(0,50) }}</h3>
           </v-flex>
-          <v-flex xs4 sm3 md2>
-            <div class="caption grey--text text-center">Status</div>
-            <div class="text-center" v-if="task.completed"><v-chip green outlined>complete</v-chip></div>
-            <div class="text-center" v-if="!task.completed"><v-chip red outlined>ongoing</v-chip></div>
+          <v-flex xs6 sm3 md3>
+            <div class="text-center grey--text text-xs-center">
+              <h2 class="text-center grey--text text-xs-center">Status</h2>
+              <v-chip outlined small color='green' v-if='task.completed' class="text-center text-xs-center">complete</v-chip>
+              <v-chip outlined small color='red' v-if='!task.completed' class="text-center text-xs-center">ongoing</v-chip>
+            </div>
           </v-flex>
-            <v-flex md2 xs4 sm3>
-            <v-btn-toggle class='mt-2 text-center'>
-              <Edit v-bind:id="task.id" v-bind:type='task'/>
-              <v-icon @click='deleteTask(task.id)'>delete</v-icon>
+          <v-flex xs6 sm3 md3 justify='center'>
+            <h2 class="text-center grey--text text-xs-center">Action</h2>
+            <v-btn-toggle class="text-center">
+              <Edit type='task' v-bind:id="task.id" class="text-xs-center"></Edit>
+              <v-icon color='red' @click='deleteTask(task.id)' class="text-center text-xs-center" outlined>delete</v-icon>
             </v-btn-toggle>
           </v-flex>
         </v-layout>
-        <v-divider></v-divider>
       </v-card>
-    </v-container>
+      </v-container>
    
   </div>
 </template>
 
 <script>
 import Edit from '../components/Edit'
+import Add from '../components/Add'
 export default {
+  components:{Edit,Add},
   data(){
     return{
-
+      name:''
     }
   },
   methods:{
     getTasks(){
       this.$tasks.getTasks(this.$store.state.token)
                   .then(tasks =>{
-                    this.$store.dispatch('setTasks', tasks.data)
+                    this.$store.dispatch('setTasks', tasks)
+                    let projects = this.$store.state.projects.filter(project => project.id == this.$route.params.id)
+                    this.name = projects[0].name
+                    console.log(this.name)
                   })
                   .catch(err => {
                     console.log(err)

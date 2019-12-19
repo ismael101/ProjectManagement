@@ -8,8 +8,8 @@
           <v-card-title>Add</v-card-title>
           <v-card-text>
           <v-form>
-              <v-text-field placeholder='Name' outlined v-model='name'></v-text-field>
-              <v-textarea placeholder="Description" outlined v-model='description'></v-textarea>
+              <v-text-field placeholder='Name' outlined v-model='form.name'></v-text-field>
+              <v-textarea placeholder="Description" outlined v-model='form.description'></v-textarea>
           </v-form>
           </v-card-text>
           <v-card-actions>
@@ -23,7 +23,9 @@
 
 <script>
 export default {
-  props:['type'],
+  props:{
+    type:String
+  },
   data(){
     return{
       form:{

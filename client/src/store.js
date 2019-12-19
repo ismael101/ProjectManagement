@@ -10,11 +10,9 @@ export default new Vuex.Store({
     state:{
         token:null,
         auth:false,
-        user:{
-            username:'',
-            id:''
-        },
-        chat:[],
+        username:'',
+        pic:'',
+        id:'',
         projects:[],
         tasks:[],
         team:[]
@@ -23,9 +21,10 @@ export default new Vuex.Store({
         setToken(state,token){
             state.token = token
         },
-        setUser(state,username,id){
-            state.user.username = username
-            state.user.id = id
+        setUser(state,user){
+            state.username = user.username
+            state.pic = user.pic
+            state.id = user.id
             state.auth = true
         },
         setProjects(state,projects){
@@ -36,14 +35,24 @@ export default new Vuex.Store({
         },
         setTeam(state,team){
             state.team = team
+        },
+        Dump(state){
+            state.token = null,
+            state.auth = false
+            state.username = '',
+            state.id = '',
+            state.pic = '',
+            state.projects = [],
+            state.tasks = [],
+            state.team = []
         }
     },
     actions:{
         setToken({commit}, token){
             commit('setToken', token)
         },
-        setUser({commit}, username, id){
-            commit('setUser',username,id)
+        setUser({commit}, user){
+            commit('setUser',user)
         },
         setProjects({commit}, projects){
             commit('setProjects', projects)
@@ -53,6 +62,9 @@ export default new Vuex.Store({
         },
         setTeam({commit}, team){
             commit('setTeam', team)
+        },
+        Dump({commit}){
+            commit('Dump',null)
         }
     }
 })

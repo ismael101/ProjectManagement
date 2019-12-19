@@ -7,7 +7,6 @@ import Projects from '../services/projects'
 import Tasks from '../services/tasks'
 import Teams from '../services/teams'
 import vuetify from './plugins/vuetify';
-
 Vue.config.productionTip = false
 
 
