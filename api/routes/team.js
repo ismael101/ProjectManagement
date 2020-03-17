@@ -1,4 +1,5 @@
 const express = require('express')
+const multer = require('multer')
 const router = express.Router()
 const controller = require('../controllers/team')
 const storage = multer.diskStorage({
@@ -20,7 +21,7 @@ router.patch('/:id', controller.updateteam)
 router.delete('/:id', controller.deleteteam)
 router.get('/users/', controller.getusers)
 router.get('/users/:id', controller.getuser)
-router.post('/users/', controller.createuser)
+router.post('/users/:id', upload.single('avatar') ,controller.createuser)
 router.patch('/users/:id', controller.updateuser)
 router.delete('/users/:id', controller.deleteuser)
 

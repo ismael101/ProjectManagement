@@ -22,9 +22,9 @@ app.use(morgan("dev"));
 app.use(express.json())
 
 
-app.use('/projects', projects)
-app.use('/teams', teams)
-app.use('/todos', todos)
+app.use('/project', projects)
+app.use('/team', teams)
+app.use('/todo', todos)
 
 app.use((req,res,next) => {
 	res.status(404).send("Not Found")

@@ -1,44 +1,26 @@
+const Task = require('./task')
 const mongoose = require('mongoose')
+const Schema = mongoose.Schema
 
-const taskSchema = new mongoose.Schema({
-    _id:{
-        type: mongoose.Schema.Types.ObjectId,
-        required:true
-    },
-    user:{type: mongoose.Schema.Types.ObjectId, ref='User'},
-    name:{
-        type: mongoose.Schema.Types.String,
-        required: true
-    },
-    description:{
-        type: mongoose.Schema.Types.String,
-        required: true
-    },
-    complete:{
-        type: mongoose.Schema.Types.Boolean,
-        default: false
-    }
-},{
-    timestamps:true
-})
-
-const todoSchema = new mongoose.Schema({
+const todoSchema = new Schema({
     _id: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         required: true
     },
-    user:{type: mongoose.Schema.Types.ObjectId, ref='User'},
+    user:{ type: Schema.Types.ObjectId, ref: 'User'},
     name:{
-        type: mongoose.Schema.Types.String,
+        type: Schema.Types.String,
         required: true
     },
-    tasks: [{ type: Schema.Types.ObjectId, ref: 'TodoTask' }],
-    complete:{
-        type: mongoose.Schema.Types.Boolean,
-        default: false
-    }
+    tasks:[{ type: Schema.Types.ObjectId, ref: 'Task' }]
 },{
-    timestamps:true
+    timestamps:true,
+    toObject: {
+        virtuals: true
+    },
+    toJSON: {
+        virtuals: true
+    }
 })
 
 todoSchema.virtual('progress').get(function() {
@@ -53,10 +35,24 @@ todoSchema.virtual('progress').get(function() {
     return (progress/counter) * 100
   });
 
-const TodoTask = new mongoose.model('TodoTask', todoSchema)
+todoSchema.virtual('complete').get(function() {
+    let flag = true
+    this.tasks.forEach(element => {
+        if(!element.complete){
+            flag = false
+        }
+    })
+    return flag
+})
+
+todoSchema.pre('remove', function(next) {
+    this.tasks.forEach(element => {
+        Task.remove({_id:element})
+    })
+    next()
+})
+
+
 const Todo = new mongoose.model('Todo', todoSchema)
 
-module.exports = {
-    Todo: Todo,
-    TodoTask: TodoTask
-}
+module.exports = Todo

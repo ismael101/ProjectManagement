@@ -1,42 +1,114 @@
-const Todo = require('../models/todo').Todo
-const Task = require('../models').TodoTask
+const mongoose = require('mongoose')
+const Todo = require('../models/todo')
+const Task = require('../models/task')
 
 exports.gettodos = (req,res,next) => {
-
+    Todo.find()
+        .populate('tasks')
+        .then(todos => {
+            res.status(200).send(todos)
+        })
+        .catch(error => {
+            res.status(400).send(error)
+        })
 }
 
 exports.gettodo = (req,res,next) => {
-
+    Todo.findById(req.params.id)
+        .populate('tasks')
+        .then(todo => {
+            res.status(200).send(todo)
+        })
+        .catch(error => {
+            res.status(400).send(error)
+        })
 }
 
 exports.createtodo = (req,res,next) => {
-
-}
+    req.body._id = new mongoose.Types.ObjectId
+    Todo.create(req.body)
+        .then(todo => {
+            res.status(201).send(todo)
+        })
+        .catch(error => {
+            res.status(400).send(error)
+        })
+}   
 
 exports.updatetodo = (req,res,next) => {
-
+    Todo.update({_id:req.params.id},req.body)
+        .then(() => {
+            res.status(200).send('Project Updated')
+        })
+        .catch(error => {
+            res.status(400).send(error)
+        })
 }
 
 exports.deletetodo = (req,res,next) => {
-
+    Todo.remove({_id:req.params.id})
+        .then(() => {
+            res.status(200).send('Todo Deleted')
+        })
+        .catch(error => {
+            res.status(400).send(error)
+        })
 }
 
 exports.gettasks = (req,res,next) => {
-
+    Task.find()
+        .then(tasks => {
+            res.status(200).send(tasks)
+        })
+        .catch(error => {
+            res.status(400).send(error)
+        })
 }
 
 exports.gettask = (req,res,next) => {
-
+    Task.findById(req.params.id)
+        .then(task => {
+            res.status(200).send(task)
+        })
+        .catch(error => {
+            res.status(400).send(error)
+        })
 }
 
 exports.createtask = (req,res,next) => {
-
+    req.body._id = new mongoose.Types.ObjectId
+    Task.create(req.body)
+        .then(task => {
+            Todo.find({_id:req.params.id})
+                .then(todo => {
+                  todo.tasks.push(task._id)
+                  res.status(200).send(task)  
+                })
+                .catch(error => {
+                    res.status(400).send(error)
+                })
+        })
+        .catch(error => {
+            res.status(400).send(error)
+        })
 }
 
 exports.updatetask = (req,res,next) => {
-
+    Task.update({_id:req.params.id}, req.body)
+        .then(() => {
+            res.status(200).send('Task Updated')
+        })
+        .catch(error => {
+            res.status(400).send(error)
+        })
 }
 
 exports.deletetask = (req,res,next) => {
-    
+    Task.remove({_id:req.params.id})
+        .then(() => {
+            res.status(200).send('Task Deleted')
+        })
+        .catch(error => {
+            res.status(400).send(error)
+        })
 }

@@ -1,46 +1,22 @@
+const Task = require('./task')
 const mongoose = require('mongoose')
+const Schema = mongoose.Schema
 
-const taskSchema = new mongoose.Schema({
+const projectSchema = new Schema({
     _id:{
-        type: mongoose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         required:true
     },
-    assigned:{type: mongoose.Schema.Types.ObjectId, ref='User'},
     name:{
         type: mongoose.Schema.Types.String,
         required: true
     },
+    team:{ type: Schema.Types.ObjectId, ref: 'Team'},
     description:{
-        type: mongoose.Schema.Types.String,
+        type: Schema.Types.String,
         required: true
     },
-    complete:{
-        type: mongoose.Schema.Types.Boolean,
-        default: false
-    }
-},{
-    timestamps:true
-})
-
-const projectSchema = new mongoose.Schema({
-    _id:{
-        type: mongoose.Schema.Types.ObjectId,
-        required:true
-    },
-    team:{type: mongoose.Schema.Types.ObjectId, ref='Team'},
-    name:{
-        type: mongoose.Schema.Types.String,
-        required: true
-    },
-    description:{
-        type: mongoose.Schema.Types.String,
-        required: true
-    },
-    tasks:[{ type: mongoose.Schema.Types.ObjectId, ref: 'ProjectTask' }],
-    complete:{
-        type: mongoose.Schema.Types.Boolean,
-        default: false
-    }
+    tasks:[{ type: Schema.Types.ObjectId, ref: 'Task' }],
 },{
     timestamps:true,
     toObject: {
@@ -63,11 +39,24 @@ projectSchema.virtual('progress').get(function() {
     return (progress/counter) * 100
   });
 
-const Task = new mongoose.model('ProjectTask', taskSchema)
+projectSchema.virtual('complete').get(function() {
+    let flag = true
+    this.tasks.forEach(element => {
+        if(!element.complete){
+            flag = false
+        }
+    })
+    return flag
+})
+
+projectSchema.pre('remove', function(next) {
+    this.tasks.forEach(element => {
+        Task.remove({_id:element})
+    })
+    next()
+})
+
+
 const Project = new mongoose.model('Project', projectSchema)
 
-
-module.exports = {
-    Project: Project,
-    Task: Task
-}
+module.exports = Project
