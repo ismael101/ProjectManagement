@@ -6,22 +6,18 @@ const userSchema = new Schema({
         type: Schema.Types.ObjectId,
         required:true
     },
-    team:{ type: Schema.Types.ObjectId, ref: 'Team'},
-    name:{
+    username:{
         type: Schema.Types.String,
         required:true
     },
-    title:{
-        type: Schema.Types.String,
-        required:true
-    },
-    avatar:{
-        type: Schema.Types.String,
+    password:{
+        type: Schema.Types.ObjectId,
         required:true
     }
 },{
     timestamps:true
 })
+
 
 const User = new mongoose.model('User', userSchema)
 

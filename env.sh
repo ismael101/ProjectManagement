@@ -1,2 +1,0 @@
-export USER=5e5888e142b32e5781cbf067
-export TEAM=5e575beda1612c6fddf51e76
