@@ -15,7 +15,7 @@ mongoose.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@ds0239
             console.log(err)
         })
 
-app.use(express.static(path.join(__dirname,'client','dist')))
+app.use('/',express.static(path.join(__dirname,'client','dist')))
 app.use(cors())
 app.use(morgan("dev"));
 app.use(express.json())
