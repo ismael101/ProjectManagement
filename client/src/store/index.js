@@ -24,6 +24,31 @@ export default new Vuex.Store({
     },
     deleteproject(state, project){
       state.projects.filter(element => element._id != project._id)
+    },
+    addtask(state, task){
+      state.projects.forEach(project => {
+        if(project._id == task.project){
+          project.tasks.push(task)
+        }
+      });
+    },
+    updatetask(state, task){
+      state.projects.forEach(project => {
+        if(project._id == task.project){
+          project.tasks.forEach(element => {
+            if(element._id == task._id){
+              element = task
+            }
+          })
+        }
+      })
+    },
+    deletetask(state, task){
+      state.projects.forEach(project => {
+        if(project._id == task.project){
+          project.tasks.filter(element => element._id == task._id)
+        }
+      })
     }
   },
   actions: {

@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Project from '../views/Project.vue'
-
+import NotFound from '../views/NotFound.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -12,9 +12,14 @@ const routes = [
     component: Home
   },
   {
-    path: '/:id',
+    path: '/project/:id',
     name: 'Project',
     component: Project
+  },
+  {
+    path: "*",
+    name: "404",
+    component: NotFound
   }
 ]
 
