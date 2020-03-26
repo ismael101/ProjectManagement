@@ -54,7 +54,7 @@ export default new Vuex.Store({
   actions: {
     async setprojects({commit}){
       try{
-       let projects = await axios.get('http://localhost:4000/projects/')
+       let projects = await axios.get('http://localhost:4000/api/projects/')
        commit('setprojects', projects.data)
       }catch(err){
         console.log(err)
@@ -62,7 +62,7 @@ export default new Vuex.Store({
     },
     async addprojects({commit}, data){
       try{
-        let project = await axios.post('http://localhost:4000/projects/', data)
+        let project = await axios.post('http://localhost:4000/api/projects/', data)
         commit('addprojects', project.data) 
       }catch(err){
         console.log(err)
@@ -70,7 +70,7 @@ export default new Vuex.Store({
     },
     async updateproject({commit}, data){
       try{
-        await axios.patch(`http://localhost:4000/projects/${data._id}`,data)
+        await axios.patch(`http://localhost:4000/api/projects/${data._id}`,data)
         commit('updateproject', data)
       }catch(err){
         console.log(err)
@@ -78,7 +78,7 @@ export default new Vuex.Store({
     },
     async deleteproject({commit}, project){
       try{
-        await axios.delete(`http://localhost:4000/projects/${project._id}`)
+        await axios.delete(`http://localhost:4000/api/projects/${project._id}`)
         commit('deleteproject', project) 
       }catch(err){
         console.log(err)
@@ -86,7 +86,7 @@ export default new Vuex.Store({
     },
     async createtask({commit}, data){
       try{
-        let task = await axios.post('http://localhost:4000/tasks/',data)
+        let task = await axios.post('http://localhost:4000/api/tasks/',data)
         commit('createtask',task)
       }catch(err){
         console.log(err)
@@ -94,14 +94,14 @@ export default new Vuex.Store({
     },
     async updatetask({commit}, task){
       try{
-        await axios.update(`http://localhost:4000/tasks/${task._id}`,task)
+        await axios.update(`http://localhost:4000/api/tasks/${task._id}`,task)
         commit('updatetask', task)
       }catch(err){
 
       }
     },
     async deletetask({commit}, task){
-      await axios.delete(`http://localhost:4000/tasks/${task._id}`)
+      await axios.delete(`http://localhost:4000/api/tasks/${task._id}`)
       commit('deletetask',task)
     }
   },
