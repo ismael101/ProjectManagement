@@ -44,12 +44,8 @@
                 link
                 :to="`/project/${project._id}`"
                 >
-                <v-list-item-icon>
-                <v-icon small>mdi-dots-vertical</v-icon>
-                </v-list-item-icon>
                 <v-list-item-content>
-                    <v-list-item-title v-if="project.complete" class="cyan--text">{{project.name}}</v-list-item-title>
-                <v-list-item-title v-else class="red--text">{{project.name}}</v-list-item-title>
+                  <v-list-item-title>{{project.name}}</v-list-item-title>
                 </v-list-item-content>
                 </v-list-item>
             </v-list>
@@ -59,7 +55,7 @@
         </div>
         <template v-slot:append>
         <div class="pa-2">
-            <v-btn block outlined color='white'>Add Project</v-btn>
+          <Create/>
         </div>
         </template>
 
@@ -73,8 +69,12 @@
 </template>
 
 <script>
+import Create from './components/Create'
 export default {
   name: 'App',
+  components:{
+    Create
+  },
   data(){
     return{
       drawer:true,
