@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Project from '../views/Project.vue'
 import NotFound from '../views/NotFound.vue'
+
 Vue.use(VueRouter)
 
 const routes = [

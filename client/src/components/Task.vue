@@ -21,12 +21,11 @@
         </div>
       </v-col>
       <v-col>
-        <div md="1" class="">
+        <div>
+          <div class="caption grey--text">Status</div>
           <v-layout>
-          <Edit v-bind:task="task"/>
-            <v-icon color='red'>
-              mdi-delete-outline
-            </v-icon>
+          <Edit v-bind:object="task"/>
+          <Delete v-bind:object="task"/>
           </v-layout>
         </div>
       </v-col>
@@ -36,10 +35,20 @@
 
 <script>
 import Edit from './Edit'
+import Delete from './Delete'
 export default {
 props:['task'],
 components:{
-  Edit
+  Edit,
+  Delete
+},
+methods:{
+  deleteTask(){
+
+  },
+  editTask(){
+
+  }
 }
 }
 </script>

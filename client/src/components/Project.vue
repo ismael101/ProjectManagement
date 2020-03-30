@@ -1,14 +1,18 @@
 <template>
 <div>
     <v-row>
-        <v-col>
+        <v-col md='6' sm='6' xs='6'>
             <h2 class="my-1">{{project.name}}</h2>
             <div class="my-1">
                 <span class="grey--text">{{project.description}}</span>
             </div>
         </v-col>
-        <v-col class="text-right">
-            <Add/>      
+        <v-col class="text-right" md='6' sm='6' xs='6'>
+            <Create v-bind:type="'task'"/>
+                <v-layout>   
+                    <Edit v-bind:object="project"/>
+                    <Delete v-bind:object="project"/>
+                </v-layout>
         </v-col>
     </v-row>
         <v-progress-linear
@@ -26,11 +30,15 @@
 </template>
 
 <script>
-import Add from './Add'
+import Create from './Create'
+import Edit from './Edit'
+import Delete from './Delete'
 export default {
 props:['project'],
 components:{
-    Add
+    Create,
+    Edit,
+    Delete
 },
 computed: {
     progress(){

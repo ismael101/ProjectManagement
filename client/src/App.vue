@@ -55,7 +55,7 @@
         </div>
         <template v-slot:append>
         <div class="pa-2">
-          <Create/>
+          <Create v-bind:type="'project'"/>
         </div>
         </template>
 
