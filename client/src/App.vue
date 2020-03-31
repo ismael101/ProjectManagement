@@ -55,7 +55,7 @@
         </div>
         <template v-slot:append>
         <div class="pa-2">
-          <Create v-bind:type="'project'"/>
+          <Create v-bind:type="'project'"  v-on:createObject='createProject'/>
         </div>
         </template>
 
@@ -79,6 +79,15 @@ export default {
     return{
       drawer:true,
       panel:0
+    }
+  },
+  methods:{
+    createProject(object){
+      try{
+        this.$store.dispatch('addproject', object)
+      }catch(err){
+        console.log(err)
+      }
     }
   },
   async mounted(){

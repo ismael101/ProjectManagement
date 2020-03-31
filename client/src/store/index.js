@@ -12,7 +12,7 @@ export default new Vuex.Store({
     setprojects(state, projects){
       state.projects = projects
     },
-    addprojects(state, project){
+    addproject(state, project){
       state.projects.push(project)
     },
     updateproject(state, project){
@@ -27,6 +27,7 @@ export default new Vuex.Store({
     },
     addtask(state, task){
       state.projects.forEach(project => {
+        console.log(task)
         if(project._id == task.project){
           project.tasks.push(task)
         }
@@ -60,10 +61,10 @@ export default new Vuex.Store({
         console.log(err)
       }
     },
-    async addprojects({commit}, data){
+    async addproject({commit}, data){
       try{
         let project = await axios.post('http://localhost:4000/api/projects/', data)
-        commit('addprojects', project.data) 
+        commit('addproject', project.data) 
       }catch(err){
         console.log(err)
       }
@@ -84,10 +85,10 @@ export default new Vuex.Store({
         console.log(err)
       }
     },
-    async createtask({commit}, data){
+    async addtask({commit}, data){
       try{
-        let task = await axios.post('http://localhost:4000/api/tasks/',data)
-        commit('createtask',task)
+        let res = await axios.post('http://localhost:4000/api/tasks/',data)
+        commit('addtask',res.data)
       }catch(err){
         console.log(err)
       }

@@ -15,13 +15,13 @@
             </v-card-title>
             <v-card-text>
             <v-form ref='form'>
-                <v-text-field outlined label='Name' v-model="object.name">
+                <v-text-field outlined label='Name' v-model="name">
                 </v-text-field>
                 <v-textarea
                 outlined
                 name="input-7-4"
                 label="Description"
-                v-model="object.description"
+                v-model="description"
                 ></v-textarea>
                 <v-menu
                 ref="menu"
@@ -34,7 +34,7 @@
                 >
                 <template v-slot:activator="{ on }">
                 <v-text-field
-                    v-model="object.due"
+                    v-model="due"
                     label="Date"
                     hint="MM/DD/YYYY format"
                     persistent-hint
@@ -42,15 +42,15 @@
                     v-on="on"
                 ></v-text-field>
                 </template>
-                <v-date-picker v-model="object.due" no-title @input="menu = false"></v-date-picker>
+                <v-date-picker v-model="due" no-title @input="menu = false"></v-date-picker>
             </v-menu>
                 </v-form>
             </v-card-text>
             <v-card-actions class="text-right">
-            <v-btn outlined color='red'>
+            <v-btn outlined color='red' @click='cancel'>
                 Cancel
             </v-btn>
-            <v-btn outlined color='cyan'>
+            <v-btn outlined color='cyan' @click='save'>
                 Save
             </v-btn>
             </v-card-actions>
@@ -65,8 +65,31 @@ props:['object'],
 data(){
     return{
         dialog:false,
-        menu:false
+        menu:false,
+        name:'',
+        description:'',
+        due:''
     }
+},
+methods:{
+    save(){
+        this.$emit('editObject', {_id:this.object._id,name:this.name,description:this.description,due:this.due})
+        this.dialog = false
+        this.name = this.object.name
+        this.description = this.object.description
+        this.due = this.object.due.substring(0,10)
+    },
+    cancel(){
+        this.dialog = false
+        this.name = this.object.name
+        this.description = this.object.description
+        this.due = this.object.due.substring(0,10)
+    }
+},
+mounted(){
+    this.name = this.object.name
+    this.description = this.object.description
+    this.due = this.object.due.substring(0,10)
 }
 }
 </script>

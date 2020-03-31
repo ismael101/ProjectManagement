@@ -1,25 +1,30 @@
 <template>
-  <div class="home">
+  <v-container>
     <v-row>
       <v-col>
-
+        <v-card>
+          
+        </v-card>
       </v-col>
       <v-col>
+        <v-card>
 
-      </v-col>
-      <v-col>
-
+        </v-card>
       </v-col>
     </v-row>  
     <v-row>
       <v-col>
+        <v-card>
 
+        </v-card>
       </v-col>
       <v-col>
-        
+        <v-card>
+
+        </v-card>
       </v-col>
     </v-row>
-  </div>
+  </v-container>
 </template>
 
 <script>

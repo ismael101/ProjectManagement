@@ -16,16 +16,15 @@
       <v-col md="2">
         <div class="right">
           <div class="caption grey--text">Status</div>
-          <v-chip v-if='task.complete' outlined color='cyan' small>complete</v-chip>
-          <v-chip v-else outlined color='red' small>incomplete</v-chip>
+          <Status v-bind:task="task" v-on:statusChange="statusChange(task)"/>
         </div>
       </v-col>
       <v-col>
         <div>
-          <div class="caption grey--text">Status</div>
+          <div class="caption grey--text">Actions</div>
           <v-layout>
-          <Edit v-bind:object="task"/>
-          <Delete v-bind:object="task"/>
+              <Edit v-bind:object="task" v-on:editObject="editTask(data)"/>
+              <Delete v-bind:id="task._id" v-on:deleteObject="deleteTask(task)"/>
           </v-layout>
         </div>
       </v-col>
@@ -36,18 +35,23 @@
 <script>
 import Edit from './Edit'
 import Delete from './Delete'
+import Status from './Status'
 export default {
 props:['task'],
 components:{
   Edit,
-  Delete
+  Delete,
+  Status
 },
 methods:{
-  deleteTask(){
-
+  deleteTask(task){
+    this.$store.dispatch('deletetask',task)
   },
-  editTask(){
-
+  editTask(task){
+    this.$store.dispatch('edittask',task)
+  },
+  statusChange(task){
+    this.$store.dispatch('statuschange',task)
   }
 }
 }
