@@ -21,7 +21,7 @@
 
 <script>
 export default {
-props:['id'],
+props:['object'],
 data(){
     return{
         overlay:false
@@ -30,7 +30,7 @@ data(){
 methods:{
     deleteObject(){
         this.overlay = false
-        this.$emit('deleteObject',this.id)
+        this.$emit('deleteObject',this.object)
     }
 }
 }

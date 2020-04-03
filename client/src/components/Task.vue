@@ -23,8 +23,8 @@
         <div>
           <div class="caption grey--text">Actions</div>
           <v-layout>
-              <Edit v-bind:object="task" v-on:editObject="editTask(data)"/>
-              <Delete v-bind:id="task._id" v-on:deleteObject="deleteTask(task)"/>
+              <Edit v-bind:object="task" v-on:editObject="editTask"/>
+              <Delete v-bind:object="task" v-on:deleteObject="deleteTask"/>
           </v-layout>
         </div>
       </v-col>
@@ -45,6 +45,7 @@ components:{
 },
 methods:{
   deleteTask(task){
+    task.project = this.task.project
     this.$store.dispatch('deletetask',task)
   },
   editTask(task){

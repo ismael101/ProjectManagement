@@ -15,8 +15,8 @@ export default new Vuex.Store({
     addproject(state, project){
       state.projects.push(project)
     },
-    updateproject(state, project){
-      state.projects.forEach(element => {
+    editproject(state, project){
+      state.projects.map(element => {
         if(element._id = project.id){
           element = project
         }
@@ -27,28 +27,26 @@ export default new Vuex.Store({
     },
     addtask(state, task){
       state.projects.forEach(project => {
-        console.log(task)
         if(project._id == task.project){
           project.tasks.push(task)
         }
       });
     },
-    updatetask(state, task){
-      state.projects.forEach(project => {
-        if(project._id == task.project){
-          project.tasks.forEach(element => {
-            if(element._id == task._id){
-              element = task
-            }
-          })
-        }
+    edittask(state, task){
+      state.projects.map(project => {
+        project.tasks = project.tasks.map(element => {
+          if(element._id == task._id){
+            element = task
+          }
+          return element
+        })
+        return project
       })
     },
     deletetask(state, task){
-      state.projects.forEach(project => {
-        if(project._id == task.project){
-          project.tasks.filter(element => element._id == task._id)
-        }
+      state.projects.map(project => {
+        project.tasks = project.tasks.filter(element => element._id != task._id)
+        return project
       })
     }
   },
@@ -69,10 +67,10 @@ export default new Vuex.Store({
         console.log(err)
       }
     },
-    async updateproject({commit}, data){
+    async editproject({commit}, data){
       try{
         await axios.patch(`http://localhost:4000/api/projects/${data._id}`,data)
-        commit('updateproject', data)
+        commit('editproject', data)
       }catch(err){
         console.log(err)
       }
@@ -93,17 +91,21 @@ export default new Vuex.Store({
         console.log(err)
       }
     },
-    async updatetask({commit}, task){
+    async edittask({commit}, task){
       try{
-        await axios.update(`http://localhost:4000/api/tasks/${task._id}`,task)
-        commit('updatetask', task)
+        await axios.patch(`http://localhost:4000/api/tasks/${task._id}`,task)
+        commit('edittask', task)
       }catch(err){
-
+        console.log(err)
       }
     },
     async deletetask({commit}, task){
-      await axios.delete(`http://localhost:4000/api/tasks/${task._id}`)
-      commit('deletetask',task)
+      try{
+        await axios.delete(`http://localhost:4000/api/tasks/${task._id}`)
+        commit('deletetask',task) 
+      }catch(err){
+        console.log(err)
+      }
     }
   },
 })

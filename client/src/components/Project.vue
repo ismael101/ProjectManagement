@@ -13,8 +13,8 @@
         <v-col class="text-right" md='6' sm='6' xs='6'>
             <Create v-bind:type="'task'"  v-on:createObject='createTask' class="my-2"/>
             <v-layout justify-end class="my-2">   
-                <Edit v-bind:object="project" v-on:editObject="editProject(project)"/>
-                <Delete v-bind:object="project" v-on:deleteObject="deleteProject(project)"/>
+                <Edit v-bind:object="project" v-on:editObject="editProject"/>
+                <Delete v-bind:object="project" v-on:deleteObject="deleteProject"/>
             </v-layout>
         </v-col>
     </v-row>
@@ -61,17 +61,27 @@ computed: {
 methods:{
     createTask(object){
         try{
-        object.project = this.project._id
-        this.$store.dispatch('addtask',object)
+            object.project = this.project._id
+            this.$store.dispatch('addtask',object)
         }catch(err){
             console.log(err)
         }
     },
-    editProject(project){
-        this.$store.dispatch('editproject', project)
+    editProject(object){
+        try{
+            object._id = this.project._id
+            this.$store.dispatch('updateproject', object)
+        }catch(err){
+            console.log(err)
+        }
     },
-    deleteProject(project){
-        this.$store.dispatch('deleteproject', project)
+    deleteProject(id){
+        try{
+            this.$store.dispatch('deleteproject', id)
+            this.$router.push('/')
+        }catch(err){
+            console.log(err)
+        }
     }
 }
 }
