@@ -7,6 +7,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     projects:[],
+    error:false
   },
   mutations: { 
     setprojects(state, projects){
@@ -53,6 +54,9 @@ export default new Vuex.Store({
         project.tasks = project.tasks.filter(element => element._id != task._id)
         return project
       })
+    },
+    seterror(state, flag){
+      state.error = flag
     }
   },
   actions: {
@@ -60,56 +64,63 @@ export default new Vuex.Store({
       try{
        let projects = await axios.get('http://localhost:4000/api/projects/')
        commit('setprojects', projects.data)
+       commit('seterror', false)
       }catch(err){
-        console.log(err)
+        commit('seterror', true)
       }
     },
     async addproject({commit}, data){
       try{
         let project = await axios.post('http://localhost:4000/api/projects/', data)
         commit('addproject', project.data) 
+        commit('seterror', false)
       }catch(err){
-        console.log(err)
+        commit('seterror', true)
       }
     },
     async editproject({commit}, data){
       try{
         await axios.patch(`http://localhost:4000/api/projects/${data._id}`,data)
         commit('editproject', data)
+        commit('seterror', false)
       }catch(err){
-        console.log(err)
+        commit('seterror', true)
       }
     },
     async deleteproject({commit}, project){
       try{
         await axios.delete(`http://localhost:4000/api/projects/${project._id}`)
-        commit('deleteproject', project) 
+        commit('deleteproject', project)
+        commit('seterror', false) 
       }catch(err){
-        console.log(err)
+        commit('seterror', true)
       }
     },
     async addtask({commit}, data){
       try{
         let res = await axios.post('http://localhost:4000/api/tasks/',data)
         commit('addtask',res.data)
+        commit('seterror', false)
       }catch(err){
-        console.log(err)
+        commit('seterror', true)
       }
     },
     async edittask({commit}, task){
       try{
         await axios.patch(`http://localhost:4000/api/tasks/${task._id}`,task)
         commit('edittask', task)
+        commit('seterror', false)
       }catch(err){
-        console.log(err)
+        commit('seterror', true)
       }
     },
     async deletetask({commit}, task){
       try{
         await axios.delete(`http://localhost:4000/api/tasks/${task._id}`)
-        commit('deletetask',task) 
+        commit('deletetask',task)
+        commit('seterror', false) 
       }catch(err){
-        console.log(err)
+        commit('seterror', true)
       }
     }
   },

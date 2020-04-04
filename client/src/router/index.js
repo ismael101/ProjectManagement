@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import NotFound from '../views/NotFound'
 import Project from '../views/Project.vue'
-import NotFound from '../views/NotFound.vue'
 
 Vue.use(VueRouter)
 
@@ -19,7 +19,7 @@ const routes = [
   },
   {
     path: "*",
-    name: "404",
+    name: 'Error',
     component: NotFound
   }
 ]

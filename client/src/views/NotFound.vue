@@ -1,17 +1,16 @@
 <template>
-  <v-container fill-height class="text-center justify-center">
-    <div>
-    <h1 class="display-4">404</h1>
-    <v-divider class="my-2" />
-    <h2 class="display-1 grey-text">Page Not Found</h2>
-    </div>
-  </v-container>
+      <Error v-bind:error="'404'" v-bind:message="'Page Not Found'"/>
 </template>
 
 <script>
-
+import Error from '../components/Error'
 export default {
-  name: 'NotFound',
-
+components:{
+    Error
+}
 }
 </script>
+
+<style>
+
+</style>

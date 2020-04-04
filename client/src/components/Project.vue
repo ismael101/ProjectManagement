@@ -1,5 +1,8 @@
 <template>
 <div>
+    <v-alert type="warning" v-if="error">
+      API Error
+    </v-alert>
     <v-row>
         <v-col md='6' sm='6' xs='6'>
             <h2 class="my-1 headline">{{project.name}} - <span class="grey--text">{{project.due.substring(0,10)}}</span></h2>
@@ -40,6 +43,11 @@ components:{
     Edit,
     Delete
 },
+data(){
+    return{
+        error:false
+    }
+},
 computed: {
     progress(){
         if(this.project.tasks.length > 0){
@@ -61,7 +69,7 @@ methods:{
             object.project = this.project._id
             this.$store.dispatch('addtask',object)
         }catch(err){
-            console.log(err)
+            this.error = true
         }
     },
     editProject(object){
@@ -69,7 +77,7 @@ methods:{
             object._id = this.project._id
             this.$store.dispatch('editproject', object)
         }catch(err){
-            console.log(err)
+            this.error = true
         }
     },
     deleteProject(project){
@@ -77,7 +85,7 @@ methods:{
             this.$store.dispatch('deleteproject', project)
             this.$router.push('/')
         }catch(err){
-            console.log(err)
+            this.error = true
         }
     }
 }
