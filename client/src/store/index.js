@@ -16,14 +16,17 @@ export default new Vuex.Store({
       state.projects.push(project)
     },
     editproject(state, project){
-      state.projects.map(element => {
-        if(element._id = project.id){
-          element = project
+      state.projects.forEach(element => {
+        if(element._id == project._id){
+          element.name = project.name
+          element.description = project.description
+          element.due = project.due
         }
+        return element
       })
     },
     deleteproject(state, project){
-      state.projects.filter(element => element._id != project._id)
+      state.projects = state.projects.filter(element => element._id != project._id)
     },
     addtask(state, task){
       state.projects.forEach(project => {
@@ -36,7 +39,9 @@ export default new Vuex.Store({
       state.projects.map(project => {
         project.tasks = project.tasks.map(element => {
           if(element._id == task._id){
-            element = task
+            element.name = task.name
+            element.description = task.description
+            element.due = task.due
           }
           return element
         })

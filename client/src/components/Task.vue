@@ -52,7 +52,8 @@ methods:{
     this.$store.dispatch('edittask',task)
   },
   statusChange(task){
-    this.$store.dispatch('statuschange',task)
+    task.complete = !task.complete
+    this.$store.dispatch('edittask',task)
   }
 }
 }

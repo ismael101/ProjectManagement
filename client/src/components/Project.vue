@@ -2,12 +2,9 @@
 <div>
     <v-row>
         <v-col md='6' sm='6' xs='6'>
-            <h2 class="my-1">{{project.name}}</h2>
+            <h2 class="my-1 headline">{{project.name}} - <span class="grey--text">{{project.due.substring(0,10)}}</span></h2>
             <div>
-                <span class="grey--text">{{project.description}}</span>
-            </div>
-            <div>
-                <span class="grey--text">Due: {{project.due.substring(0,10)}}</span>
+                <h3 class="grey--text">{{project.description}}</h3>
             </div>
         </v-col>
         <v-col class="text-right" md='6' sm='6' xs='6'>
@@ -21,12 +18,12 @@
         <v-progress-linear
         class="my-4"
         :value="progress"
-        color="blue-grey"
+        color="deep-purple accent-4"
         height="25"
         reactive
         >
             <template v-slot="{ value }">
-                <strong>{{ Math.ceil(value) }}%</strong>
+                <strong class="white--text">{{ Math.ceil(value) }}%</strong>
             </template>
         </v-progress-linear>
 </div>
@@ -70,14 +67,14 @@ methods:{
     editProject(object){
         try{
             object._id = this.project._id
-            this.$store.dispatch('updateproject', object)
+            this.$store.dispatch('editproject', object)
         }catch(err){
             console.log(err)
         }
     },
-    deleteProject(id){
+    deleteProject(project){
         try{
-            this.$store.dispatch('deleteproject', id)
+            this.$store.dispatch('deleteproject', project)
             this.$router.push('/')
         }catch(err){
             console.log(err)
