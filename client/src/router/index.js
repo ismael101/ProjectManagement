@@ -1,33 +1,31 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import NotFound from '../views/NotFound'
 import Project from '../views/Project.vue'
+import Notfound from '../views/Notfound.vue'
 
 Vue.use(VueRouter)
 
-const routes = [
+  const routes = [
   {
-    path: '/',
-    name: 'Home',
-    component: Home
+    path:'/',
+    name:'Home',
+    component:Home
   },
   {
-    path: '/project/:id',
-    name: 'Project',
-    component: Project
+    path:'/:id',
+    name:'Project',
+    component:Project
   },
   {
-    path: "*",
-    name: 'Error',
-    component: NotFound
+    path:'*',
+    name:'Error',
+    component:Notfound
   }
 ]
-
 const router = new VueRouter({
+  routes,
   mode: 'history',
-  base: process.env.BASE_URL,
-  routes
 })
 
 export default router

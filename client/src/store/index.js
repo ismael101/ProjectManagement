@@ -9,7 +9,7 @@ export default new Vuex.Store({
     projects:[],
     error:false
   },
-  mutations: { 
+  mutations: {
     setprojects(state, projects){
       state.projects = projects
     },
@@ -124,4 +124,6 @@ export default new Vuex.Store({
       }
     }
   },
+  modules: {
+  }
 })

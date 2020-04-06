@@ -1,6 +1,6 @@
 <template>
 <div>
-    <v-tooltip right>
+    <v-tooltip left>
         <template v-slot:activator="{on}">
             <v-icon color='red' v-on="on" @click="overlay = !overlay">
                 mdi-delete-outline
@@ -37,5 +37,4 @@ methods:{
 </script>
 
 <style>
-
 </style>

@@ -1,27 +1,25 @@
 <template>
     <div>
-        <v-btn v-if="type == 'task'" color='deep-purple accent-4' dark @click="dialog = !dialog">
+        <v-btn v-if="type == 'task'" color='teal accent-3' outlined @click="dialog = !dialog">
             Create Task
         </v-btn>
-        <v-btn v-else-if="type == 'project'" outlined color='white' block @click="dialog = !dialog">
+        <v-btn v-else-if="type == 'project'" color="teal accent-3" outlined @click="dialog = !dialog">
             Create Project
         </v-btn>
-         <v-dialog v-model="dialog" width='500'>
-        <v-card class="py-3 px-3">
+         <v-dialog v-model="dialog" width='500' color="blue-grey darken-4">
+        <v-card class="py-3 px-3" color="blue-grey darken-4" dark>
             <v-card-title>
                 <span v-if="type == 'task'">Create Task</span>
                 <span v-if="type == 'project'">Create Project</span>
             </v-card-title>
             <v-card-text>
-                <v-form ref='form'>
-                    <v-text-field outlined label='Name' v-model="name">
-                    </v-text-field>
-                    <v-textarea
-                    outlined
-                    name="input-7-4"
-                    label="Description"
-                    v-model="description"
-                    ></v-textarea>
+                <v-form 
+                ref="form"
+                v-model="valid"
+                :lazy-validation="lazy"
+                >
+                    <v-text-field outlined label='Name' v-model="name" :counter="10" :rules="nameRules" required/>
+                    <v-textarea outlined label="Description" v-model="description" :counter='30' :rules="descriptionRules" required/>
                     <v-menu
                     ref="menu"
                     v-model="menu"
@@ -48,13 +46,13 @@
                 </v-form>
             </v-card-text>
             <v-card-actions class="text-right">
-                <v-btn outlined color='red' @click="cancel">
+                <v-btn color='red' @click="cancel">
                     Cancel
                 </v-btn>
-            <v-btn v-if="type == 'task'" outlined color='cyan' @click="submit">
+            <v-btn v-if="type == 'task'" color='cyan' @click="submit" :disabled="!valid">
                 Create Task
             </v-btn>
-            <v-btn v-else-if="type == 'project'" outlined color='cyan' @click="submit">
+            <v-btn v-else-if="type == 'project'" color='cyan' @click="submit" :disabled="!valid">
                 Create Project
             </v-btn>
             </v-card-actions>
@@ -69,21 +67,33 @@ export default {
     props:['type'],
     data(){
         return{
+            valid:true,
             dialog:false,
             menu:false,
             name:'',
+            nameRules: [
+            v => !!v || 'Name is required',
+            v => (v && v.length <= 10) || 'Name must be less than 10 characters',
+            ],
             description:"",
+            descriptionRules: [
+            v => !!v || 'Description is required',
+            v => (v && v.length >= 30) || 'Description must be at least 30 characters',
+            ],
             due: new Date().toISOString().substr(0, 10),
+            lazy:false
         }
     },
     methods:{
         cancel(){
+            this.$refs.form.resetValidation()
             this.name = ''
             this.description = ''
             this.due = new Date().toISOString().substr(0, 10),
             this.dialog = false
         },
         submit(){
+            this.$refs.form.resetValidation()
             this.$emit('createObject',{name:this.name,description:this.description,due:this.due})
             this.name = ''
             this.description = ''
@@ -95,5 +105,4 @@ export default {
 </script>
 
 <style>
-
 </style>

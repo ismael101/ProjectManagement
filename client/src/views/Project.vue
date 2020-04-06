@@ -1,11 +1,46 @@
 <template>
   <div>
     <div v-if="this.$store.state.projects.filter(project => project._id == this.$route.params.id).length > 0">
-      <v-container width='500' class="py-5 px-5">
-        <Project v-bind:project='this.$store.state.projects.filter(project => project._id == this.$route.params.id)[0]'/>
-    <v-sheet class="infosheet">
-          <Task v-for="task in this.$store.state.projects.filter(project => project._id == this.$route.params.id)[0].tasks" :key="task._id" v-bind:task="task"/>
-    </v-sheet>
+      <v-container width='500' class="py-5 px-5" fluid>
+            <Create v-bind:type="'task'" v-on:createObject='createProject' class="my-3"/>
+          <v-row>
+              <v-col md="4" sm="12">
+                <h1 class="white--text">Project Info</h1>
+                <v-divider class="mt-2 mb-5" color='white'/>
+                <v-row class="white--text">
+                    <v-col sm="4">
+                        <span class="subtitle-1">Name</span>
+                    </v-col>
+                    <v-col sm="8">
+                        <span class="subtitle-1">{{this.$store.state.projects.filter(project => project._id == this.$route.params.id)[0].name}}</span>
+                    </v-col>
+                    <v-col sm="4">
+                        <span class="subtitle-1">Description</span>
+                    </v-col>
+                    <v-col sm="8">
+                        <span class="subtitle-1">{{this.$store.state.projects.filter(project => project._id == this.$route.params.id)[0].description}}</span>
+                    </v-col>
+                    <v-col sm="4">
+                        <span class="subtitle-1">Created</span>
+                    </v-col>
+                    <v-col sm="8">
+                        <span class="subtitle-1">{{this.$store.state.projects.filter(project => project._id == this.$route.params.id)[0].createdAt.substring(0,10)}}</span>
+                    </v-col>
+                    <v-col sm="4">
+                        <span class="subtitle-1">Due</span>
+                    </v-col>
+                    <v-col sm="8">
+                        <span class="subtitle-1">{{this.$store.state.projects.filter(project => project._id == this.$route.params.id)[0].due.substring(0,10)}}</span>
+                    </v-col>
+                </v-row>
+                <Progress v-bind:project="this.$store.state.projects.filter(project => project._id == this.$route.params.id)[0]"/>
+              </v-col>
+              <v-col md="8" sm="12">
+                <h1 class="white--text" >Tasks</h1>
+                <v-divider class="mt-2 mb-5" color='white'/>
+                <Task v-for="task in this.$store.state.projects.filter(project => project._id == this.$route.params.id)[0].tasks" :key="task._id" v-bind:task="task" class="my-2"/>
+              </v-col>
+          </v-row>
       </v-container>
     </div>
     <div v-else>
@@ -18,26 +53,34 @@
   </div>
 </template>
 <script>
-import Project from '../components/Project'
 import Create from '../components/Create'
 import Task from '../components/Task'
+import Progress from '../components/Progress'
 export default {
   components:{
     Task,
-    Project,
-    Create
+    Create,
+    Progress
   },
   data(){
     return{
       dialog:false
     }
+  },
+  methods:{
+    methods:{
+    createProject(object){
+      try{
+        this.$store.dispatch('addproject', object)
+      }catch(err){
+        console.log(err)
+      }
+    }
+  }
   }
 }
-
 </script>
 
 <style>
-.infosheet{
-  border-radius: 50;
-}
+
 </style>

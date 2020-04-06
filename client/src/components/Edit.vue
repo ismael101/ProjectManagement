@@ -1,28 +1,25 @@
 <template>
 <div>
-     <v-tooltip left>
+     <v-tooltip right>
       <template v-slot:activator="{ on }">
-          <v-icon @click='dialog = !dialog' v-on="on">
+          <v-icon @click='dialog = !dialog' v-on="on" color="teal accent-3">
             mdi-pencil-outline
         </v-icon>
       </template>
       <span>Edit</span>
     </v-tooltip>
-    <v-dialog v-model="dialog" width='500'>
-        <v-card class="py-3 px-3">
+    <v-dialog v-model="dialog" width='500' color="blue-grey darken-4">
+        <v-card class="py-3 px-3" color="blue-grey darken-4" dark>
             <v-card-title>
             <span>Edit Project</span>
             </v-card-title>
             <v-card-text>
-            <v-form ref='form'>
-                <v-text-field outlined label='Name' v-model="name">
-                </v-text-field>
-                <v-textarea
-                outlined
-                name="input-7-4"
-                label="Description"
-                v-model="description"
-                ></v-textarea>
+            <v-form   
+            ref="form"
+            v-model="valid"
+            :lazy-validation="lazy">
+                <v-text-field outlined label='Name' v-model="name" required :counter="10" :rules="nameRules"/>
+                <v-textarea outlined label="Description" v-model="description" :counter='30' :rules="descriptionRules"/>
                 <v-menu
                 ref="menu"
                 v-model="menu"
@@ -47,10 +44,10 @@
                 </v-form>
             </v-card-text>
             <v-card-actions class="text-right">
-            <v-btn outlined color='red' @click='cancel'>
+            <v-btn color='red' @click='cancel'>
                 Cancel
             </v-btn>
-            <v-btn outlined color='cyan' @click='save'>
+            <v-btn color='cyan' @click='save' :disabled="!valid">
                 Save
             </v-btn>
             </v-card-actions>
@@ -64,10 +61,20 @@ export default {
 props:['object'],
 data(){
     return{
+        valid:true,
         dialog:false,
         menu:false,
         name:'',
+        nameRules: [
+        v => !!v || 'Name is required',
+        v => (v && v.length <= 10) || 'Name must be less than 10 characters',
+        ],
         description:'',
+        descriptionRules: [
+        v => !!v || 'Description is required',
+        v => (v && v.length >= 30) || 'Description must be at least 30 characters',
+        ],
+        lazy: false,
         due:''
     }
 },
@@ -80,6 +87,7 @@ methods:{
         this.due = this.object.due.substring(0,10)
     },
     cancel(){
+        this.$refs.form.resetValidation()
         this.dialog = false
         this.name = this.object.name
         this.description = this.object.description
@@ -95,5 +103,4 @@ mounted(){
 </script>
 
 <style>
-
 </style>

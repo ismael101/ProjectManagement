@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-sheet color="blue-grey darken-3" dark>
       <v-row align="center" class="pa-3">
       <v-col md="2">
         <div class="caption grey--text">Title</div>
@@ -23,44 +23,42 @@
         <div>
           <div class="caption grey--text">Actions</div>
           <v-layout>
+            <Delete v-bind:object="task" v-on:deleteObject="deleteTask"/>
               <Edit v-bind:object="task" v-on:editObject="editTask"/>
-              <Delete v-bind:object="task" v-on:deleteObject="deleteTask"/>
           </v-layout>
         </div>
       </v-col>
     </v-row>
-  </div>
+  </v-sheet>
 </template>
 
 <script>
-import Edit from './Edit'
-import Delete from './Delete'
-import Status from './Status'
+import Edit from './Edit.vue'
+import Delete from './Delete.vue'
+import Status from './Status.vue'
 export default {
-props:['task'],
-components:{
-  Edit,
-  Delete,
-  Status
-},
-methods:{
-  deleteTask(task){
-    task.project = this.task.project
-    this.$store.dispatch('deletetask',task)
-  },
-  editTask(task){
-    this.$store.dispatch('edittask',task)
-  },
-  statusChange(task){
-    task.complete = !task.complete
-    this.$store.dispatch('edittask',task)
-  }
-}
+    props:['task'],
+    components:{
+    Edit,
+    Delete,
+    Status
+    },
+    methods:{
+    deleteTask(task){
+        task.project = this.task.project
+        this.$store.dispatch('deletetask',task)
+    },
+    editTask(task){
+        this.$store.dispatch('edittask',task)
+    },
+    statusChange(task){
+        task.complete = !task.complete
+        this.$store.dispatch('edittask',task)
+    }
+    }
 }
 </script>
 
-<style scoped>
-.tasks{
-  border-radius: 25px;
-}
+<style>
+
 </style>

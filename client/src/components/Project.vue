@@ -1,55 +1,62 @@
 <template>
-<div>
-    <v-alert type="warning" v-if="error">
-      API Error
-    </v-alert>
-    <v-row>
-        <v-col md='6' sm='6' xs='6'>
-            <h2 class="my-1 headline">{{project.name}} - <span class="grey--text">{{project.due.substring(0,10)}}</span></h2>
-            <div>
-                <h3 class="grey--text">{{project.description}}</h3>
-            </div>
-        </v-col>
-        <v-col class="text-right" md='6' sm='6' xs='6'>
-            <Create v-bind:type="'task'"  v-on:createObject='createTask' class="my-2"/>
-            <v-layout justify-end class="my-2">   
-                <Edit v-bind:object="project" v-on:editObject="editProject"/>
-                <Delete v-bind:object="project" v-on:deleteObject="deleteProject"/>
-            </v-layout>
-        </v-col>
-    </v-row>
-        <v-progress-linear
-        class="my-4"
-        :value="progress"
-        color="deep-purple accent-4"
-        height="25"
-        reactive
-        >
-            <template v-slot="{ value }">
-                <strong class="white--text">{{ Math.ceil(value) }}%</strong>
-            </template>
-        </v-progress-linear>
-</div>
+  <v-card color="blue-grey darken-3 px-2 py-2" dark outlined>
+      <v-card-title class="mb-5">
+          <span class="headline">{{project.name}}</span>
+          <v-spacer/>
+          <v-chip color="cyan" v-if="complete">
+              complete
+          </v-chip>
+          <v-chip color="red" v-else>
+              incomplete
+          </v-chip>
+      </v-card-title>
+      <v-card-subtitle class="mb-2">
+           <Progress v-bind:project="project"/>
+      </v-card-subtitle>
+      <v-card-text>
+          <span class="subtitle-1">{{project.description}}</span>
+          <v-row>
+            <v-col>
+                <div class="subtitle-1 grey--text">Created</div>
+                <div class="subtitle-2">{{ project.createdAt.substring(0,10) }}</div>
+            </v-col>
+            <v-col>
+                <div class="subtitle-1 grey--text">Due</div>
+                <div class="subtitle-2">{{ project.due.substring(0,10) }}</div>
+            </v-col>
+            <v-col>
+                <div class="subtitle-1 grey--text">Tasks</div>
+                <div class="subtitle-2">{{ project.tasks.length }}</div>
+            </v-col>
+          </v-row>
+      </v-card-text>
+      <v-card-actions>
+          <router-link :to="`/${project._id}`">
+            <span>
+                Tasks
+            </span>
+          </router-link>
+          <v-spacer/>
+            <Delete v-bind:object="project" v-on:deleteObject="deleteProject"/>
+            <Edit v-bind:object="project" v-on:editObject="editProject"/>
+      </v-card-actions>
+  </v-card>
 </template>
 
 <script>
-import Create from './Create'
-import Edit from './Edit'
 import Delete from './Delete'
+import Edit from './Edit'
+import Progress from './Progress'
+
 export default {
-props:['project'],
-components:{
-    Create,
-    Edit,
-    Delete
-},
-data(){
-    return{
-        error:false
-    }
-},
-computed: {
-    progress(){
+    props:['project'],
+    components:{
+        Delete,
+        Edit,
+        Progress
+    },
+    computed:{
+        progress(){
         if(this.project.tasks.length > 0){
             let progress = 0
             this.project.tasks.forEach(element => {
@@ -61,18 +68,28 @@ computed: {
         }else{
             return 100
         }     
-    }
-  },
-methods:{
-    createTask(object){
+        },
+        complete(){
+            let flag = true
+            this.project.tasks.forEach(task => {
+                if(task.complete == false){
+                    flag = false
+                }
+            })
+            return flag
+        }
+    },
+    methods:{
+        deleteProject(project){
         try{
-            object.project = this.project._id
-            this.$store.dispatch('addtask',object)
+            this.$store.dispatch('deleteproject', project)
+            this.$router.push('/')
         }catch(err){
             this.error = true
         }
-    },
-    editProject(object){
+        
+        },
+        editProject(object){
         try{
             object._id = this.project._id
             this.$store.dispatch('editproject', object)
@@ -80,15 +97,7 @@ methods:{
             this.error = true
         }
     },
-    deleteProject(project){
-        try{
-            this.$store.dispatch('deleteproject', project)
-            this.$router.push('/')
-        }catch(err){
-            this.error = true
-        }
     }
-}
 }
 </script>
 
