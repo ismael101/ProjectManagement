@@ -1,32 +1,28 @@
 <template>
   <v-card color="blue-grey darken-3 px-2 py-2" dark outlined>
       <v-card-title class="mb-5">
-          <span class="headline">{{project.name}}</span>
+          <span class="headline" id='name' v-text="project.name"/>
           <v-spacer/>
-          <v-chip color="cyan" v-if="complete">
-              complete
-          </v-chip>
-          <v-chip color="red" v-else>
-              incomplete
-          </v-chip>
+          <v-chip color="cyan" id="status" v-if="complete" v-text="'complete'"/>
+          <v-chip color="red" id="status" v-else v-text="'incomplete'"/>
       </v-card-title>
       <v-card-subtitle class="mb-2">
            <Progress v-bind:project="project"/>
       </v-card-subtitle>
       <v-card-text>
-          <span class="subtitle-1">{{project.description}}</span>
+          <span class="subtitle-1" id="description" v-text="project.description"/>
           <v-row>
             <v-col>
                 <div class="subtitle-1 grey--text">Created</div>
-                <div class="subtitle-2">{{ project.createdAt.substring(0,10) }}</div>
+                <div class="subtitle-2" id="created" v-text="project.createdAt.substring(0,10)"/>
             </v-col>
             <v-col>
                 <div class="subtitle-1 grey--text">Due</div>
-                <div class="subtitle-2">{{ project.due.substring(0,10) }}</div>
+                <div class="subtitle-2" id="due" v-text="project.due.substring(0,10)"/>
             </v-col>
             <v-col>
                 <div class="subtitle-1 grey--text">Tasks</div>
-                <div class="subtitle-2">{{ project.tasks.length }}</div>
+                <div class="subtitle-2" id="task" v-text="project.tasks.length"/>
             </v-col>
           </v-row>
       </v-card-text>

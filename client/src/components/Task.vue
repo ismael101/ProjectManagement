@@ -3,15 +3,15 @@
       <v-row align="center" class="pa-3">
       <v-col md="2">
         <div class="caption grey--text">Title</div>
-        <div>{{ task.name }}</div>
+        <div v-text="task.name" id="name"/>
       </v-col>
       <v-col md="5">
         <div class="caption grey--text">Description</div>
-        <div>{{ task.description }}</div>
+        <div v-text="task.description" id='description'/>
       </v-col>
       <v-col md="2">
         <div class="caption grey--text">Due</div>
-        <div>{{ task.due.substring(0,10) }}</div>
+        <div v-text="task.due.substring(0,10)" id="due"/>
       </v-col>
       <v-col md="2">
         <div class="right">

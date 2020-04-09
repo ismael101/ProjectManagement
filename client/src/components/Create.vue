@@ -1,9 +1,9 @@
 <template>
     <div>
-        <v-btn v-if="type == 'task'" color='teal accent-3' outlined @click="dialog = !dialog">
+        <v-btn type="button" v-if="type == 'task'" color='teal accent-3' outlined @click="dialog = !dialog" id="dialog">
             Create Task
         </v-btn>
-        <v-btn v-else-if="type == 'project'" color="teal accent-3" outlined @click="dialog = !dialog">
+        <v-btn type="button" v-else-if="type == 'project'" color="teal accent-3" outlined @click="dialog = !dialog" id="dialog">
             Create Project
         </v-btn>
          <v-dialog v-model="dialog" width='500' color="blue-grey darken-4">
@@ -18,8 +18,8 @@
                 v-model="valid"
                 :lazy-validation="lazy"
                 >
-                    <v-text-field outlined label='Name' v-model="name" :counter="10" :rules="nameRules" required/>
-                    <v-textarea outlined label="Description" v-model="description" :counter='30' :rules="descriptionRules" required/>
+                    <v-text-field type="input" outlined label='Name' v-model="name" :counter="10" :rules="nameRules" required data-test="name"/>
+                    <v-textarea type="input" outlined label="Description" v-model="description" :counter='30' :rules="descriptionRules" required data-test="description"/>
                     <v-menu
                     ref="menu"
                     v-model="menu"
@@ -46,13 +46,13 @@
                 </v-form>
             </v-card-text>
             <v-card-actions class="text-right">
-                <v-btn color='red' @click="cancel">
+                <v-btn color='red' @click="cancel" id="cancel">
                     Cancel
                 </v-btn>
-            <v-btn v-if="type == 'task'" color='cyan' @click="submit" :disabled="!valid">
+            <v-btn v-if="type == 'task'" color='cyan' @click="submit" :disabled="!valid" id='submit'>
                 Create Task
             </v-btn>
-            <v-btn v-else-if="type == 'project'" color='cyan' @click="submit" :disabled="!valid">
+            <v-btn v-else-if="type == 'project'" color='cyan' @click="submit" :disabled="!valid" id='submit'>
                 Create Project
             </v-btn>
             </v-card-actions>
