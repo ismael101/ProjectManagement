@@ -2,7 +2,7 @@
   <div>
     <div v-if="this.$store.state.projects.filter(project => project._id == this.$route.params.id).length > 0">
       <v-container width='500' class="py-5 px-5" fluid>
-            <Create v-bind:type="'task'" v-on:createObject='createProject' class="my-3"/>
+            <Create v-bind:type="'task'" v-on:createObject='createTask' class="my-3"/>
           <v-row>
               <v-col md="4" sm="12">
                 <h1 class="white--text">Project Info</h1>
@@ -68,15 +68,14 @@ export default {
     }
   },
   methods:{
-    methods:{
-    createProject(object){
+    createTask(object){
       try{
-        this.$store.dispatch('addproject', object)
+        object.project = this.$route.params.id
+        this.$store.dispatch('addtask', object)
       }catch(err){
         console.log(err)
       }
     }
-  }
   }
 }
 </script>

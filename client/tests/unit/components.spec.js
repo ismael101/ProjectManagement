@@ -85,9 +85,8 @@ describe('Task.vue', () => {
 })
 
 describe('Create.vue', () => {
-  const wrapper = mount(Status, {propsData:{type:'project'}})
-  it('launch dialog', async() => {
-    await wrapper.find('#dialog').trigger('click')
-
+  const wrapper = mount(Create, {propsData:{type:'project'}})
+  it('renders text', async() => {
+    expect(wrapper.html()).toContain('Create Project')
   })
 })

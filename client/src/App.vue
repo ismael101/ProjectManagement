@@ -6,9 +6,11 @@
       flat
       dark
       >
+      <router-link to='/'>
       <v-toolbar-title>
         Projects
       </v-toolbar-title>
+      </router-link>
     </v-app-bar>
       <v-content class="blue-grey darken-4" app>
           <router-view/>
