@@ -1,5 +1,5 @@
 <template>
-  <v-sheet color="blue-grey darken-3" dark>
+  <v-sheet color="blue-grey darken-3" dark :id="task.name">
       <v-row align="center" class="pa-3">
       <v-col md="2">
         <div class="caption grey--text">Title</div>

@@ -20,8 +20,8 @@
             v-model="valid"
             :lazy-validation="lazy"
             >
-                <v-text-field type="input" outlined label='Name' v-model="name" :counter="10" :rules="nameRules" required data-test="name"/>
-                <v-textarea type="input" outlined label="Description" v-model="description" :counter='30' :rules="descriptionRules" required data-test="description"/>
+                <v-text-field type="input" outlined label='Name' v-model="name" :counter="10" :rules="nameRules" required data-test='name'/>
+                <v-textarea type="input" outlined label="Description" v-model="description" :counter='30' :rules="descriptionRules" required data-test='description'/>
                 <v-menu
                 ref="menu"
                 v-model="menu"

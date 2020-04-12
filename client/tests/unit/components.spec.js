@@ -30,7 +30,7 @@ describe('Delete.vue', () => {
     const deleteObject = sinon.stub()
     wrapper.setMethods({deleteObject:deleteObject})
     await wrapper.find('#open').trigger('click')
-    await wrapper.find('#delete').trigger('click')
+    await wrapper.find('#yes').trigger('click')
     expect(deleteObject.called).toBeTruthy()
   })
 })

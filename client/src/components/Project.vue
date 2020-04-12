@@ -1,5 +1,5 @@
 <template>
-  <v-card color="blue-grey darken-3 px-2 py-2" dark outlined>
+  <v-card color="blue-grey darken-3 px-2 py-2" dark outlined :id="project.name">
       <v-card-title class="mb-5">
           <span class="headline" id='name' v-text="project.name"/>
           <v-spacer/>
@@ -27,7 +27,7 @@
           </v-row>
       </v-card-text>
       <v-card-actions>
-          <router-link :to="`/${project._id}`">
+          <router-link :to="`/${project._id}`" id="link">
             <span>
                 Tasks
             </span>

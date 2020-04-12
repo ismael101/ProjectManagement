@@ -1,5 +1,5 @@
 <template>
-<div>
+<div id='edit'>
      <v-tooltip right>
       <template v-slot:activator="{ on }">
           <v-icon @click='dialog = !dialog' v-on="on" color="teal accent-3">
@@ -18,8 +18,8 @@
             ref="form"
             v-model="valid"
             :lazy-validation="lazy">
-                <v-text-field outlined label='Name' v-model="name" required :counter="10" :rules="nameRules"/>
-                <v-textarea outlined label="Description" v-model="description" :counter='30' :rules="descriptionRules"/>
+                <v-text-field outlined label='Name' v-model="name" required :counter="10" :rules="nameRules" data-test='name'/>
+                <v-textarea outlined label="Description" v-model="description" :counter='30' :rules="descriptionRules" data-test='description'/>
                 <v-menu
                 ref="menu"
                 v-model="menu"
@@ -47,7 +47,7 @@
             <v-btn color='red' @click='cancel'>
                 Cancel
             </v-btn>
-            <v-btn color='cyan' @click='save' :disabled="!valid">
+            <v-btn color='cyan' @click='save' :disabled="!valid" id="save">
                 Save
             </v-btn>
             </v-card-actions>
