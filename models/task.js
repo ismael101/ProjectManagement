@@ -1,6 +1,8 @@
+//import module
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
+//create schema for task
 const taskSchema = new Schema({
     _id:{
         type: Schema.Types.ObjectId,
@@ -36,14 +38,8 @@ const taskSchema = new Schema({
     }
 })
 
-taskSchema.virtual('overdue').get(function() {
-    if(this.due > Date.now()){
-        return true
-    }else{
-        return false
-    }
-})
-
+//create model
 const Task = new mongoose.model('Task', taskSchema)
 
+//export
 module.exports = Task

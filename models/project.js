@@ -1,6 +1,8 @@
+//import module
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
+//create schema for project
 const projectSchema = new Schema({
     _id:{
         type: Schema.Types.ObjectId,
@@ -24,50 +26,10 @@ const projectSchema = new Schema({
     }
 },{
     timestamps:true,
-    toObject: {
-        virtuals: true
-    },
-    toJSON: {
-        virtuals: true
-    }
 })
 
-projectSchema.virtual('progress').get(function() {
-    let counter = 0
-    let progress = 0
-    if(this.tasks.length > 0){
-        this.tasks.forEach(element => {
-            counter++
-            if(element.complete){
-                progress++
-            }
-        });
-        return (progress/counter) * 100
-    }
-    else{
-        return 100
-    }
-  });
-
-projectSchema.virtual('complete').get(function() {
-    let flag = true
-    this.tasks.forEach(element => {
-        if(!element.complete){
-            flag = false
-        }
-    })
-    return flag
-})
-
-projectSchema.virtual('overdue').get(function() {
-    if(this.due > Date.now()){
-        return true
-    }else{
-        return false
-    }
-})
-
-
+//create model
 const Project = new mongoose.model('Project', projectSchema)
 
+//export
 module.exports = Project
