@@ -6,6 +6,7 @@ const morgan = require('morgan')
 const projects = require('./routes/project')
 const tasks = require('./routes/task')
 const app = express()
+const path = require('path')
 
 //connect to database
 mongoose.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@ds023912.mlab.com:23912/projects`,{useNewUrlParser:true, useCreateIndex:true, useUnifiedTopology:true})
