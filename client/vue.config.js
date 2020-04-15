@@ -3,6 +3,6 @@ module.exports = {
     "vuetify"
   ],
   "devServer": {
-    "proxy": `http://localhost:${process.env.PORT}`
+    "proxy": 'http://localhost:4000'
   },
 }

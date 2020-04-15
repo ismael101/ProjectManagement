@@ -17,28 +17,29 @@ mongoose.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@ds0239
             console.log(err)
         }) 
 
+app.use(express.static(path.join(__dirname, 'client', 'dist')))
+
 //allow json and cors 
 app.use(express.json())
 app.use(morgan('dev'))
 app.use(cors())
 
-app.use(express.static(path.join(__dirname, 'client', 'dist')))
-
 //endpoints for projects and tasks
 app.use('/api/tasks', tasks)
 app.use('/api/projects', projects)
 
-// Error handlers - for not found, and app errors 
 app.use(function(req, res, next){
     res.status(404).send('Not found')
 })
 
+// Error handler for server errors 
 app.use(function (err, req, res, next) {
     console.error(err.stack)
     res.status(500).send('Server error')
 })
 
+
 // Start server running 
 var server = app.listen(process.env.PORT || 3000, function() {
-    console.log('app running on port', server.address().port)
+    console.log('Express server running on port', server.address().port)
 })
