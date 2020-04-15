@@ -66,6 +66,7 @@ export default new Vuex.Store({
        commit('setprojects', projects.data)
        commit('seterror', false)
       }catch(err){
+        console.log(err)
         commit('seterror', true)
       }
     },
