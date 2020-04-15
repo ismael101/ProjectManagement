@@ -41,5 +41,5 @@ app.use(function (err, req, res, next) {
 
 // Start server running 
 var server = app.listen(process.env.PORT || 3000, function() {
-    console.log('Express server running on port', server.address().port)
+    console.log('server running on port', server.address().port)
 })
