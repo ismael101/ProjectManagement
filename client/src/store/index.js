@@ -62,7 +62,7 @@ export default new Vuex.Store({
   actions: {
     async setprojects({commit}){
       try{
-       let projects = await axios.get('http://localhost:4000/api/projects/')
+       let projects = await axios.get('/api/projects/')
        commit('setprojects', projects.data)
        commit('seterror', false)
       }catch(err){
@@ -72,7 +72,7 @@ export default new Vuex.Store({
     },
     async addproject({commit}, data){
       try{
-        let project = await axios.post('http://localhost:4000/api/projects/', data)
+        let project = await axios.post('/api/projects/', data)
         commit('addproject', project.data) 
         commit('seterror', false)
       }catch(err){
@@ -82,7 +82,7 @@ export default new Vuex.Store({
     },
     async editproject({commit}, data){
       try{
-        await axios.patch(`http://localhost:4000/api/projects/${data._id}`,data)
+        await axios.patch(`/api/projects/${data._id}`,data)
         commit('editproject', data)
         commit('seterror', false)
         console.log(err)
@@ -92,7 +92,7 @@ export default new Vuex.Store({
     },
     async deleteproject({commit}, project){
       try{
-        await axios.delete(`http://localhost:4000/api/projects/${project._id}`)
+        await axios.delete(`/api/projects/${project._id}`)
         commit('deleteproject', project)
         commit('seterror', false) 
       }catch(err){
@@ -102,7 +102,7 @@ export default new Vuex.Store({
     },
     async addtask({commit}, data){
       try{
-        let res = await axios.post('http://localhost:4000/api/tasks/',data)
+        let res = await axios.post('/api/tasks/',data)
         commit('addtask',res.data)
         commit('seterror', false)
       }catch(err){
@@ -112,7 +112,7 @@ export default new Vuex.Store({
     },
     async edittask({commit}, task){
       try{
-        await axios.patch(`http://localhost:4000/api/tasks/${task._id}`,task)
+        await axios.patch(`/api/tasks/${task._id}`,task)
         commit('edittask', task)
         commit('seterror', false)
       }catch(err){
@@ -122,7 +122,7 @@ export default new Vuex.Store({
     },
     async deletetask({commit}, task){
       try{
-        await axios.delete(`http://localhost:4000/api/tasks/${task._id}`)
+        await axios.delete(`/api/tasks/${task._id}`)
         commit('deletetask',task)
         commit('seterror', false) 
       }catch(err){
