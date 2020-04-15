@@ -22,7 +22,7 @@ app.use(express.json())
 app.use(morgan('dev'))
 app.use(cors())
 
-app.use(express.static(path.join(__dirname, 'student-client', 'dist')))
+app.use(express.static(path.join(__dirname, 'client', 'dist')))
 
 //endpoints for projects and tasks
 app.use('/api/tasks', tasks)
