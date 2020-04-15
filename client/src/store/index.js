@@ -76,6 +76,7 @@ export default new Vuex.Store({
         commit('addproject', project.data) 
         commit('seterror', false)
       }catch(err){
+        console.log(err)
         commit('seterror', true)
       }
     },
@@ -84,6 +85,7 @@ export default new Vuex.Store({
         await axios.patch(`http://localhost:4000/api/projects/${data._id}`,data)
         commit('editproject', data)
         commit('seterror', false)
+        console.log(err)
       }catch(err){
         commit('seterror', true)
       }
@@ -94,6 +96,7 @@ export default new Vuex.Store({
         commit('deleteproject', project)
         commit('seterror', false) 
       }catch(err){
+        console.log(err)
         commit('seterror', true)
       }
     },
@@ -103,6 +106,7 @@ export default new Vuex.Store({
         commit('addtask',res.data)
         commit('seterror', false)
       }catch(err){
+        console.log(err)
         commit('seterror', true)
       }
     },
@@ -112,6 +116,7 @@ export default new Vuex.Store({
         commit('edittask', task)
         commit('seterror', false)
       }catch(err){
+        console.log(err)
         commit('seterror', true)
       }
     },
@@ -121,10 +126,9 @@ export default new Vuex.Store({
         commit('deletetask',task)
         commit('seterror', false) 
       }catch(err){
+        console.log(err)
         commit('seterror', true)
       }
     }
   },
-  modules: {
-  }
 })
