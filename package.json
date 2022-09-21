@@ -14,7 +14,7 @@
     "mongoose": "^5.9.6",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.2",
-    "vuetify": "^2.2.11"
+    "vuetify": "^2.6.10"
   },
   "devDependencies": {
     "sass": "^1.19.0",
